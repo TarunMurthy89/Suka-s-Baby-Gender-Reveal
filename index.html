@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Mission</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h2 { color: #333; margin-bottom: 10px; }
+        p { color: #666; font-size: 1.1em; line-height: 1.5; }
+        input {
+            width: 80%;
+            padding: 12px;
+            margin: 20px 0 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            text-align: center;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { background: #45a049; }
+        .error { color: #ff3b30; font-weight: bold; margin-top: 10px; display: none; }
+        .success-box { display: none; background: #e8f5e9; border: 2px dashed #4CAF50; padding: 15px; border-radius: 8px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2 id="puzzle-title">Loading Module...</h2>
+    <p id="puzzle-clue">Initializing encryption sequence...</p>
+    
+    <div id="input-zone">
+        <input type="text" id="answer-input" placeholder="Enter solution code">
+        <br>
+        <button onclick="verifyAnswer()">Decrypt Node</button>
+        <p class="error" id="error-msg">Access Denied. Sequence incorrect.</p>
+    </div>
+
+    <div class="success-box" id="success-zone">
+        <h3 style="color: #2e7d32; margin: 0 0 10px 0;">✔ Node Decrypted</h3>
+        <p id="next-location-hint" style="color: #1b5e20; margin: 0; font-weight: bold;"></p>
+    </div>
+</div>
+
+<script>
+    // ⚙️ CONFIGURATION: Change your questions, answers, and hints here!
+    const puzzleData = {
+        "1": {
+            title: "Puzzle 1: The Timeline",
+            clue: "Count the total number of days between our first date and our wedding day. Enter the exact number.",
+            answer: "1142", // Change this to your exact answer
+            nextHint: "Go to where the morning coffee brews. Your next QR code awaits under the machine."
+        },
+        "2": {
+            title: "Puzzle 2: The Baby Nursery",
+            clue: "Decode the anagram hidden in our nursery registry list items: Crib, Blanket, Bottle, Toy. What word do they spell?",
+            answer: "baby", // Will accept lowercase or uppercase
+            nextHint: "Search the coldest spot in the house. Look inside the vegetable crisper drawer."
+        },
+        "3": {
+            title: "Puzzle 3: The Final Key",
+            clue: "Solve the remaining riddle: What goes up but never comes down? (One word)",
+            answer: "age",
+            nextHint: "MASTER KEY UNLOCKED: Use combination 2-0-2-6 to open the wooden box on the main table!"
+        }
+    };
+
+    // Parse the current URL step (e.g., ?step=1) [1]
+    const urlParams = new URLSearchParams(window.location.search); [1]
+    let currentStep = urlParams.get('step') || "1";
+
+    // Inject data into the page based on the QR code scanned
+    if (puzzleData[currentStep]) {
+        document.getElementById("puzzle-title").innerText = puzzleData[currentStep].title;
+        document.getElementById("puzzle-clue").innerText = puzzleData[currentStep].clue;
+    } else {
+        document.getElementById("puzzle-title").innerText = "Error";
+        document.getElementById("puzzle-clue").innerText = "Invalid scanning sequence detected.";
+        document.getElementById("input-zone").style.display = "none";
+    }
+
+    // Verification Logic
+    function verifyAnswer() {
+        const userInput = document.getElementById("answer-input").value.trim().toLowerCase();
+        const correctAnswer = puzzleData[currentStep].answer.toLowerCase();
+        const errorMsg = document.getElementById("error-msg");
+        const successZone = document.getElementById("success-zone");
+        const nextHintText = document.getElementById("next-location-hint");
+
+        if (userInput === correctAnswer) {
+            errorMsg.style.display = "none";
+            successZone.style.display = "block";
+            nextHintText.innerText = puzzleData[currentStep].nextHint;
+            document.getElementById("input-zone").style.display = "none"; // Hide input on success
+        } else {
+            errorMsg.style.display = "block";
+            errorMsg.innerText = "Access Denied. Incorrect string sequence.";
+        }
+    }
+</script>
+</body>
+</html>
