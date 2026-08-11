@@ -3,274 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👶 PROJECT BUNDLE INITIALIZATION</title>
+    <title>👶 PROJECT SUKA Baby Gender Reveal</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* 🖥️ HOST-INDEPENDENT HIGH-TECH MICROCHIP VECTOR GRAPHIC BACKGROUND PATTERN */
             background-color: #0a0e14;
             background-image: url("Image2.jpg");
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-attachment: fixed;
-            background-size: cover;
             display: flex;
-            justify-content: flex-end;
-            align-items: flex-start;
-            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
         }
-        /* 📦 CONTAINER MAIN CARD */
         .card {
             background: #161b22; 
-            padding: 45px 40px;
-            border-radius: 20px;
-            border: 3px solid #58a6ff;
-            box-shadow: 0 0 40px rgba(88, 166, 255, 0.4);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #58a6ff;
+            box-shadow: 0 0 25px rgba(88, 166, 255, 0.35);
             text-align: center;
-            max-width: 600px; 
+            max-width: 450px;
             width: 100%;
             position: relative;
             overflow: hidden;
             box-sizing: border-box;
-            transition: all 0.4s ease;
-            margin: 30px; 
         }
-
-        /* 📱 RESPONSIVE AUTOFIT OVERRIDES FOR MOBILE */
-        @media (max-width: 600px) {
-            body {
-                justify-content: center;
-                align-items: center;
-                padding: 10px;
-            }
-            .card {
-                margin: 0;
-                padding: 30px 20px;
-            }
-        }
-
-        /* 🚨 HEADER BANNER */
         .persistent-banner {
             background: #ff7b72;
             color: #0d1117;
-            font-size: 1.15em; 
+            font-size: 0.95em;
             font-weight: bold;
-            letter-spacing: 1.5px;
-            padding: 16px;
-            margin: -45px -40px 25px -40px;
+            letter-spacing: 1px;
+            padding: 12px;
+            margin: -30px -30px 25px -30px;
             text-transform: uppercase;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-
-        /* 📊 PROGRESS METRIC BAR INTERFACE */
-        .progress-container {
-            background: #30363d;
-            border-radius: 10px;
-            height: 14px;
-            width: 100%;
-            margin-bottom: 25px;
-            overflow: hidden;
-            border: 1px solid #21262d;
-        }
-        .progress-bar {
-            background: #58a6ff;
-            height: 100%;
-            width: 0%; 
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 12px #58a6ff;
-        }
-
-        /* 🔤 TYPOGRAPHY */
-        h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.8em; } 
-        p { color: #c9d1d9; font-size: 1.3em; line-height: 1.6; } 
-        
-        .briefing-text {
-            text-align: left;
-            background: #0d1117;
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid #30363d;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.15em; 
-            color: #8b949e;
-            margin: 30px 0;
-            line-height: 1.6;
-        }
-        /* ⌨️ INTERACTIVE INPUT FIELDS */
+        h2 { color: #58a6ff; margin-bottom: 10px; font-size: 1.3em; }
+        p { color: #c9d1d9; font-size: 1.1em; line-height: 1.5; }
         input {
-            width: 95%;
-            padding: 18px; 
-            margin: 30px 0 15px 0;
+            width: 90%;
+            padding: 12px;
+            margin: 20px 0 10px 0;
             background: #0d1117;
             border: 2px solid #30363d;
-            border-radius: 10px;
-            font-size: 1.4em; 
+            border-radius: 8px;
+            font-size: 1.1em;
             color: #fff;
             text-align: center;
             box-sizing: border-box;
-            letter-spacing: 1px;
         }
         input:focus {
             border-color: #58a6ff;
             outline: none;
-            box-shadow: 0 0 10px rgba(88, 166, 255, 0.5);
         }
-        /* 🔘 BUTTON ARCHITECTURE */
         .action-btn {
             background: #238636;
             color: white;
             border: none;
-            padding: 18px 40px; 
-            border-radius: 10px;
-            font-size: 1.25em; 
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1em;
             cursor: pointer;
             transition: 0.2s;
             font-weight: bold;
-            margin-top: 15px;
-            letter-spacing: 0.5px;
-            width: 100%; 
-            max-width: 350px;
+            margin-top: 10px;
         }
-        .action-btn:hover { 
-            background: #2ea043;
-            transform: scale(1.02);
-        }
+        .action-btn:hover { background: #2ea043; }
         .next-btn {
             background: #2196F3;
-            margin-top: 25px;
+            margin-top: 15px;
         }
         .next-btn:hover { background: #1b85db; }
-        
-        .error { color: #f85149; font-weight: bold; font-size: 1.15em; margin-top: 15px; display: none; }
-        .success-box { 
-            display: none; 
-            background: rgba(35, 134, 54, 0.15); 
-            border: 2px dashed #238636; 
-            padding: 25px; 
-            border-radius: 10px; 
-            margin-top: 25px; 
-        }
-        .success-box h3 { font-size: 1.4em; }
-
-        /* 🎬 INTERACTIVE WRONG ANSWER SHAKE ANIMATION */
-        .shake {
-            animation: shakeAnim 0.4s ease-in-out;
-            border-color: #f85149 !important;
-            box-shadow: 0 0 20px rgba(248, 81, 73, 0.4) !important;
-        }
-        @keyframes shakeAnim {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
-        }
+        .error { color: #f85149; font-weight: bold; margin-top: 10px; display: none; }
+        .success-box { display: none; background: rgba(35, 134, 54, 0.15); border: 2px dashed #238636; padding: 15px; border-radius: 8px; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-<div class="card" id="main-card">
+<div class="card">
     <div class="persistent-banner">🖥️ CODENAME: OPERATION SLEEP DEPRIVATION</div>
     
-    <div class="progress-container">
-        <div id="game-progress" class="progress-bar"></div>
-    </div>
+    <h2 id="puzzle-title">Initializing Mainframe...</h2>
+    <p id="puzzle-clue">Preparing encryption nodes...</p>
     
-    <!-- 🎬 INTRO SCREEN INTERFACE -->
-    <div id="intro-screen">
-        <h2>Incoming Transmission...</h2>
-        <div class="briefing-text">
-            &gt; OBJECTIVE: Decrypt data layers<br>
-            &gt; CLASSIFICATION: Ultra Secret<br>
-            &gt; TARGET: Future Parents<br><br>
-            A high-security vault holds the biological designation data of your incoming unit. Complete all nodes to extract the unlock code.
-        </div>
-        <button class="action-btn next-btn" onclick="startGame()">INITIALIZE MISSION</button>
+    <div id="input-zone">
+        <input type="text" id="answer-input" placeholder="Enter override code">
+        <br>
+        <button class="action-btn" onclick="verifyAnswer()">Bypass Security</button>
+        <p class="error" id="error-msg">Access Denied. Incorrect string sequence.</p>
     </div>
 
-    <!-- 🧩 ACTIVE GAME INTERFACE -->
-    <div id="game-screen" style="display: none;">
-        <h2 id="puzzle-title">Initializing Mainframe...</h2>
-        <p id="puzzle-clue">Preparing encryption nodes...</p>
-        
-        <div id="input-zone">
-            <input type="text" id="answer-input" placeholder="Enter override code" autocomplete="off">
-            <br>
-            <button class="action-btn" onclick="verifyAnswer()">Bypass Security</button>
-            <p class="error" id="error-msg">Access Denied. Incorrect string sequence.</p>
-        </div>
-
-        <div class="success-box" id="success-zone">
-            <h3 style="color: #56d364; margin: 0 0 10px 0;">✔ Node Successfully Breached</h3>
-            <p id="next-location-hint" style="color: #c9d1d9; margin: 0; font-weight: bold;"></p>
-            <div id="navigation-zone"></div>
-        </div>
+    <div class="success-box" id="success-zone">
+        <h3 style="color: #56d364; margin: 0 0 10px 0;">✔ Node Successfully Breached</h3>
+        <p id="next-location-hint" style="color: #c9d1d9; margin: 0; font-weight: bold;"></p>
+        <div id="navigation-zone"></div>
     </div>
 </div>
 
 <script>
-    // 🎵 LIVE WEB AUDIO UTILITY ENGINE (No media files required)
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playBeep(freq, type, duration) {
-        try {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = type;
-            osc.frequency.value = freq;
-            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + duration);
-        } catch(e) {}
-    }
-
     const puzzleData = {
         "1": {
             title: "Puzzle 1: The Timeline",
             clue: "Count the total of Papa birth year. Enter the exact number.",
-            answer: "10", 
+            answer: "10", // Change this to your exact answer
             nextHint: "Clear proof of baseline intelligence found. Ready for the next node?",
-            nextStep: "2",
-            pct: "33%" 
+            nextStep: "2" 
         },
         "2": {
             title: "Puzzle 2: The Baby Nursery",
-            clue: "What size diaper you choose for newborn?",
-            answer: "1", 
+            clue: "What size daiper you choose for newborn?",
+            answer: "1", // Will accept lowercase or uppercase
             nextHint: "Inventory baseline verified. Firewall security crumbling.",
-            nextStep: "3",
-            pct: "66%" 
+            nextStep: "3" 
         },
         "3": {
             title: "Puzzle 3: The Final Key",
             clue: "Solve the remaining riddle: What goes up but never comes down? (One word)",
             answer: "age",
             nextHint: "🚨 TOTAL MAINFRAME OVERRIDE ACQUIRED: Use master system bypass code 2-0-2-6 to crack the mechanical lock box on the center table!",
-            nextStep: null,
-            pct: "100%" 
+            nextStep: null 
         }
     };
 
     const urlParams = new URLSearchParams(window.location.search);
     let currentStep = urlParams.get('step') || "1";
-    let gameStarted = false;
-
-    function startGame() {
-        gameStarted = true;
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        playBeep(880, 'sine', 0.3); // Level initializing chime
-        document.getElementById("intro-screen").style.display = "none";
-        document.getElementById("game-screen").style.display = "block";
-        renderPuzzle();
-    }
 
     function renderPuzzle() {
-        if (!gameStarted) return; 
-        
-        document.getElementById("game-progress").style.width = puzzleData[currentStep].pct;
-        
         if (puzzleData[currentStep]) {
             document.getElementById("puzzle-title").innerText = puzzleData[currentStep].title;
             document.getElementById("puzzle-clue").innerText = puzzleData[currentStep].clue;
@@ -278,11 +140,12 @@
             document.getElementById("input-zone").style.display = "block";
             document.getElementById("success-zone").style.display = "none";
             document.getElementById("error-msg").style.display = "none";
+        } else {
+            document.getElementById("puzzle-title").innerText = "Critical Crash";
+            document.getElementById("puzzle-clue").innerText = "Invalid scanning pipeline sequence detected.";
+            document.getElementById("input-zone").style.display = "none";
         }
     }
-
-    function verifyAnswer() {
-
 
     function verifyAnswer() {
         const userInput = document.getElementById("answer-input").value.trim().toLowerCase();
@@ -315,6 +178,8 @@
         window.history.pushState({path:newUrl}, '', newUrl);
         renderPuzzle();
     }
+
+    renderPuzzle();
 </script>
 </body>
 </html>
