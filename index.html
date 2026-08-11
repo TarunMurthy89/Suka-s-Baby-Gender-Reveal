@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👶 PROJECT SUKA Baby Gender Reveal</title>
+    <title>👶 PROJECT BUNDLE INITIALIZATION</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* 🖥️ HOST-INDEPENDENT HIGH-TECH MICROCHIP VECTOR GRAPHIC BACKGROUND PATTERN */
             background-color: #0a0e14;
-            background-image: url("Image2.jpg");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='%231f2937' fill-opacity='0.35'%3E%3Cpath d='M0 0h20v20H0V0zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm20 0h20v20H30V0zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 30h20v20H0V30zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm120-17h20v20h-20V30zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 60h20v20H0V60zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm30 0h20v20H40V60zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm110-17h20v20h-20V60zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 90h20v20H0V90zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm60 0h20v20H70V90zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm50-17h20v20h-20V90zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 120h20v20H0v-20zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm20 0h20v20H30v-20zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm70-17h20v20h-20v-20zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/%3E%3C/g%3E%3C/svg%3E");
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,6 +29,7 @@
             position: relative;
             overflow: hidden;
             box-sizing: border-box;
+            transition: all 0.4s ease;
         }
         .persistent-banner {
             background: #ff7b72;
@@ -44,6 +44,17 @@
         }
         h2 { color: #58a6ff; margin-bottom: 10px; font-size: 1.3em; }
         p { color: #c9d1d9; font-size: 1.1em; line-height: 1.5; }
+        .briefing-text {
+            text-align: left;
+            background: #0d1117;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            color: #8b949e;
+            margin: 20px 0;
+        }
         input {
             width: 90%;
             padding: 12px;
@@ -87,20 +98,35 @@
 <div class="card">
     <div class="persistent-banner">🖥️ CODENAME: OPERATION SLEEP DEPRIVATION</div>
     
-    <h2 id="puzzle-title">Initializing Mainframe...</h2>
-    <p id="puzzle-clue">Preparing encryption nodes...</p>
-    
-    <div id="input-zone">
-        <input type="text" id="answer-input" placeholder="Enter override code">
-        <br>
-        <button class="action-btn" onclick="verifyAnswer()">Bypass Security</button>
-        <p class="error" id="error-msg">Access Denied. Incorrect string sequence.</p>
+    <!-- 🎬 INTRO SCREEN INTERFACE -->
+    <div id="intro-screen">
+        <h2>Incoming Transmission...</h2>
+        <div class="briefing-text">
+            &gt; OBJECTIVE: Decrypt data layers<br>
+            &gt; CLASSIFICATION: Ultra Secret<br>
+            &gt; TARGET: Future Parents<br><br>
+            A high-security vault holds the biological designation data of your incoming unit. Complete all nodes to extract the unlock code.
+        </div>
+        <button class="action-btn next-btn" onclick="startGame()">INITIALIZE MISSION</button>
     </div>
 
-    <div class="success-box" id="success-zone">
-        <h3 style="color: #56d364; margin: 0 0 10px 0;">✔ Node Successfully Breached</h3>
-        <p id="next-location-hint" style="color: #c9d1d9; margin: 0; font-weight: bold;"></p>
-        <div id="navigation-zone"></div>
+    <!-- 🧩 ACTIVE GAME INTERFACE (Hidden at launch) -->
+    <div id="game-screen" style="display: none;">
+        <h2 id="puzzle-title">Initializing Mainframe...</h2>
+        <p id="puzzle-clue">Preparing encryption nodes...</p>
+        
+        <div id="input-zone">
+            <input type="text" id="answer-input" placeholder="Enter override code">
+            <br>
+            <button class="action-btn" onclick="verifyAnswer()">Bypass Security</button>
+            <p class="error" id="error-msg">Access Denied. Incorrect string sequence.</p>
+        </div>
+
+        <div class="success-box" id="success-zone">
+            <h3 style="color: #56d364; margin: 0 0 10px 0;">✔ Node Successfully Breached</h3>
+            <p id="next-location-hint" style="color: #c9d1d9; margin: 0; font-weight: bold;"></p>
+            <div id="navigation-zone"></div>
+        </div>
     </div>
 </div>
 
@@ -110,14 +136,14 @@
             title: "Puzzle 1: The Timeline",
             clue: "Count the total of Papa birth year. Enter the exact number.",
             answer: "10", // Change this to your exact answer
-            nextHint: "Clear proof of baseline intelligence found. Ready for the next question?",
+            nextHint: "Clear proof of baseline intelligence found. Ready for the next node?",
             nextStep: "2" 
         },
         "2": {
             title: "Puzzle 2: The Baby Nursery",
             clue: "What size daiper you choose for newborn?",
-            answer: "1", // Will accept lowercase or uppercase
-            nextHint: "Inventory baseline verified. Firewall security crumbling.Ready for next question",
+            answer: "1", 
+            nextHint: "Inventory baseline verified. Firewall security crumbling.",
             nextStep: "3" 
         },
         "3": {
@@ -131,8 +157,19 @@
 
     const urlParams = new URLSearchParams(window.location.search);
     let currentStep = urlParams.get('step') || "1";
+    let gameStarted = false;
+
+    // Transition function to swap screens
+    function startGame() {
+        gameStarted = true;
+        document.getElementById("intro-screen").style.display = "none";
+        document.getElementById("game-screen").style.display = "block";
+        renderPuzzle();
+    }
 
     function renderPuzzle() {
+        if (!gameStarted) return; // Prevent render before intro completes
+        
         if (puzzleData[currentStep]) {
             document.getElementById("puzzle-title").innerText = puzzleData[currentStep].title;
             document.getElementById("puzzle-clue").innerText = puzzleData[currentStep].clue;
@@ -178,8 +215,6 @@
         window.history.pushState({path:newUrl}, '', newUrl);
         renderPuzzle();
     }
-
-    renderPuzzle();
 </script>
 </body>
 </html>
