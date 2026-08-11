@@ -8,89 +8,114 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0a0e14;
-            background-image: url("Image2.jpg");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='%231f2937' fill-opacity='0.35'%3E%3Cpath d='M0 0h20v20H0V0zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm20 0h20v20H30V0zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 30h20v20H0V30zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm120-17h20v20h-20V30zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 60h20v20H0V60zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm30 0h20v20H40V60zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm110-17h20v20h-20V60zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 90h20v20H0V90zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm60 0h20v20H70V90zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm50-17h20v20h-20V90zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM0 120h20v20H0v-20zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm20 0h20v20H30v-20zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm70-17h20v20h-20v-20zm10 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6z'/%3E%3C/g%3E%3C/svg%3E");
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            padding: 15px;
+            padding: 20px;
             box-sizing: border-box;
         }
+        /* 📦 ENLARGED CONTAINER MAIN CARD */
         .card {
             background: #161b22; 
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid #58a6ff;
-            box-shadow: 0 0 25px rgba(88, 166, 255, 0.35);
+            padding: 45px 40px;
+            border-radius: 20px;
+            border: 3px solid #58a6ff;
+            box-shadow: 0 0 40px rgba(88, 166, 255, 0.4);
             text-align: center;
-            max-width: 450px;
+            max-width: 600px; /* Expanded from 450px */
             width: 100%;
             position: relative;
             overflow: hidden;
             box-sizing: border-box;
             transition: all 0.4s ease;
         }
+        /* 🚨 SCALED UP HEADER BANNER */
         .persistent-banner {
             background: #ff7b72;
             color: #0d1117;
-            font-size: 0.95em;
+            font-size: 1.15em; /* Increased size */
             font-weight: bold;
-            letter-spacing: 1px;
-            padding: 12px;
-            margin: -30px -30px 25px -30px;
+            letter-spacing: 1.5px;
+            padding: 16px;
+            margin: -45px -40px 35px -40px;
             text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
-        h2 { color: #58a6ff; margin-bottom: 10px; font-size: 1.3em; }
-        p { color: #c9d1d9; font-size: 1.1em; line-height: 1.5; }
+        /* 🔤 ENLARGED TYPOGRAPHY */
+        h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.8em; } /* Increased from 1.3em */
+        p { color: #c9d1d9; font-size: 1.3em; line-height: 1.6; } /* Increased from 1.1em */
+        
         .briefing-text {
             text-align: left;
             background: #0d1117;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 12px;
             border: 1px solid #30363d;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.95em;
+            font-size: 1.15em; /* Increased from 0.95em */
             color: #8b949e;
-            margin: 20px 0;
+            margin: 30px 0;
+            line-height: 1.6;
         }
+        /* ⌨️ BIGGER INTERACTIVE INPUT FIELDS */
         input {
-            width: 90%;
-            padding: 12px;
-            margin: 20px 0 10px 0;
+            width: 95%;
+            padding: 18px; /* Increased padding */
+            margin: 30px 0 15px 0;
             background: #0d1117;
             border: 2px solid #30363d;
-            border-radius: 8px;
-            font-size: 1.1em;
+            border-radius: 10px;
+            font-size: 1.4em; /* Increased font scale */
             color: #fff;
             text-align: center;
             box-sizing: border-box;
+            letter-spacing: 1px;
         }
         input:focus {
             border-color: #58a6ff;
             outline: none;
+            box-shadow: 0 0 10px rgba(88, 166, 255, 0.5);
         }
+        /* 🔘 EXTRA LARGE BUTTON ARCHITECTURE */
         .action-btn {
             background: #238636;
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-size: 1em;
+            padding: 18px 40px; /* Highly padded target area */
+            border-radius: 10px;
+            font-size: 1.25em; /* Scaled up text */
             cursor: pointer;
             transition: 0.2s;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            width: 100%; /* Spans full card utility zone width */
+            max-width: 350px;
         }
-        .action-btn:hover { background: #2ea043; }
+        .action-btn:hover { 
+            background: #2ea043;
+            transform: scale(1.02);
+        }
         .next-btn {
             background: #2196F3;
-            margin-top: 15px;
+            margin-top: 25px;
         }
         .next-btn:hover { background: #1b85db; }
-        .error { color: #f85149; font-weight: bold; margin-top: 10px; display: none; }
-        .success-box { display: none; background: rgba(35, 134, 54, 0.15); border: 2px dashed #238636; padding: 15px; border-radius: 8px; margin-top: 15px; }
+        
+        /* 💥 NOTIFICATION MODULES */
+        .error { color: #f85149; font-weight: bold; font-size: 1.15em; margin-top: 15px; display: none; }
+        .success-box { 
+            display: none; 
+            background: rgba(35, 134, 54, 0.15); 
+            border: 2px dashed #238636; 
+            padding: 25px; 
+            border-radius: 10px; 
+            margin-top: 25px; 
+        }
+        .success-box h3 { font-size: 1.4em; }
     </style>
 </head>
 <body>
@@ -102,15 +127,15 @@
     <div id="intro-screen">
         <h2>Incoming Transmission...</h2>
         <div class="briefing-text">
-            &gt; OBJECTIVE: Decrypt Baby Gender<br>
+            &gt; OBJECTIVE: Decrypt data layers<br>
             &gt; CLASSIFICATION: Ultra Secret<br>
-            &gt; TARGET: SuKa Parents<br><br>
-            A high-security vault holds the biological designation data of your baby. Complete all questions to extract the unlock code.
+            &gt; TARGET: Future Parents<br><br>
+            A high-security vault holds the biological designation data of your incoming unit. Complete all nodes to extract the unlock code.
         </div>
         <button class="action-btn next-btn" onclick="startGame()">INITIALIZE MISSION</button>
     </div>
 
-    <!-- 🧩 ACTIVE GAME INTERFACE (Hidden at launch) -->
+    <!-- 🧩 ACTIVE GAME INTERFACE -->
     <div id="game-screen" style="display: none;">
         <h2 id="puzzle-title">Initializing Mainframe...</h2>
         <p id="puzzle-clue">Preparing encryption nodes...</p>
