@@ -7,20 +7,26 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0e14;
-            background-image: url("Image2.jpg");
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-attachment: fixed;
-            background-size: cover;
-            }
+            /* 🔵💗 OUTER SPLIT BACKGROUND */
+            background: linear-gradient(to right, #a0c4ff 50%, #ffb7b2 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
         
+        /* 📦 UPDATED ENHANCED MAIN CARD BACKGROUND (Half Blue, Half Pink with dark terminal tint) */
         .card {
-            background: rgba(22, 27, 34, 0.96); 
+            background: linear-gradient(rgba(15, 20, 28, 0.94), rgba(15, 20, 28, 0.94)), 
+                        linear-gradient(to right, #58a6ff 50%, #ff7b72 50%);
+            background-size: cover;
             padding: 45px 40px;
             border-radius: 20px;
             border: 3px solid #58a6ff;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
             text-align: center;
             max-width: 600px; 
             width: 100%;
@@ -28,16 +34,19 @@
             overflow: hidden;
             box-sizing: border-box;
             transition: all 0.4s ease;
-            backdrop-filter: blur(8px);
         }
         
-       @media (max-width: 600px) {
+        @media (max-width: 600px) {
             body { 
                 padding: 10px; 
-                /* Swaps split orientation layout vertically on narrow screens for cleaner mobile aesthetics */
                 background: linear-gradient(to bottom, #a0c4ff 50%, #ffb7b2 50%);
             }
-            .card { padding: 30px 20px; }
+            /* Swaps card gradient alignment to match vertical screen layouts on mobile */
+            .card { 
+                padding: 30px 20px; 
+                background: linear-gradient(rgba(15, 20, 28, 0.94), rgba(15, 20, 28, 0.94)), 
+                            linear-gradient(to bottom, #58a6ff 50%, #ff7b72 50%);
+            }
         }
 
         .persistent-banner {
@@ -52,7 +61,6 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
 
-        /* 📊 ENHANCED WRAPPER LAYOUT FOR TRACKER LINE & NUMBER */
         .progress-wrapper {
             display: flex;
             align-items: center;
@@ -60,12 +68,12 @@
             margin-bottom: 25px;
         }
         .progress-container {
-            background: #30363d;
+            background: #21262d;
             border-radius: 10px;
             height: 14px;
-            flex-grow: 1; /* Automatically stretches to fill room */
+            flex-grow: 1; 
             overflow: hidden;
-            border: 1px solid #21262d;
+            border: 1px solid #30363d;
         }
         .progress-bar {
             background: #58a6ff;
@@ -83,7 +91,7 @@
             text-align: right;
         }
 
-        h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.8em; } 
+        h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.8em; text-shadow: 0 2px 10px rgba(88,166,255,0.2); } 
         p { color: #c9d1d9; font-size: 1.3em; line-height: 1.6; } 
         
         .briefing-text {
@@ -97,6 +105,7 @@
             color: #8b949e;
             margin: 30px 0;
             line-height: 1.6;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
         }
 
         input {
@@ -115,7 +124,7 @@
         input:focus {
             border-color: #58a6ff;
             outline: none;
-            box-shadow: 0 0 10px rgba(88, 166, 255, 0.5);
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.4);
         }
 
         .action-btn {
@@ -146,7 +155,7 @@
         .error { color: #f85149; font-weight: bold; font-size: 1.15em; margin-top: 15px; display: none; }
         .success-box { 
             display: none; 
-            background: rgba(35, 134, 54, 0.15); 
+            background: rgba(35, 134, 54, 0.12); 
             border: 2px dashed #238636; 
             padding: 25px; 
             border-radius: 10px; 
