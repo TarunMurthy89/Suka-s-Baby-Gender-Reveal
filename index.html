@@ -9,15 +9,19 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0a0e14;
             background-image: url("Image2.jpg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-end;
+            align-items: flex-start;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
         }
-        /* 📦 ENLARGED CONTAINER MAIN CARD */
+        /* 📦 CONTAINER MAIN CARD */
         .card {
             background: #161b22; 
             padding: 45px 40px;
@@ -25,28 +29,62 @@
             border: 3px solid #58a6ff;
             box-shadow: 0 0 40px rgba(88, 166, 255, 0.4);
             text-align: center;
-            max-width: 600px; /* Expanded from 450px */
+            max-width: 600px; 
             width: 100%;
             position: relative;
             overflow: hidden;
             box-sizing: border-box;
             transition: all 0.4s ease;
+            margin: 30px; 
         }
-        /* 🚨 SCALED UP HEADER BANNER */
+
+        /* 📱 RESPONSIVE AUTOFIT OVERRIDES FOR MOBILE */
+        @media (max-width: 600px) {
+            body {
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+            }
+            .card {
+                margin: 0;
+                padding: 30px 20px;
+            }
+        }
+
+        /* 🚨 HEADER BANNER */
         .persistent-banner {
             background: #ff7b72;
             color: #0d1117;
-            font-size: 1.15em; /* Increased size */
+            font-size: 1.15em; 
             font-weight: bold;
             letter-spacing: 1.5px;
             padding: 16px;
-            margin: -45px -40px 35px -40px;
+            margin: -45px -40px 25px -40px;
             text-transform: uppercase;
             box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
-        /* 🔤 ENLARGED TYPOGRAPHY */
-        h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.8em; } /* Increased from 1.3em */
-        p { color: #c9d1d9; font-size: 1.3em; line-height: 1.6; } /* Increased from 1.1em */
+
+        /* 📊 PROGRESS METRIC BAR INTERFACE */
+        .progress-container {
+            background: #30363d;
+            border-radius: 10px;
+            height: 14px;
+            width: 100%;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border: 1px solid #21262d;
+        }
+        .progress-bar {
+            background: #58a6ff;
+            height: 100%;
+            width: 0%; 
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 12px #58a6ff;
+        }
+
+        /* 🔤 TYPOGRAPHY */
+        h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.8em; } 
+        p { color: #c9d1d9; font-size: 1.3em; line-height: 1.6; } 
         
         .briefing-text {
             text-align: left;
@@ -55,20 +93,20 @@
             border-radius: 12px;
             border: 1px solid #30363d;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 1.15em; /* Increased from 0.95em */
+            font-size: 1.15em; 
             color: #8b949e;
             margin: 30px 0;
             line-height: 1.6;
         }
-        /* ⌨️ BIGGER INTERACTIVE INPUT FIELDS */
+        /* ⌨️ INTERACTIVE INPUT FIELDS */
         input {
             width: 95%;
-            padding: 18px; /* Increased padding */
+            padding: 18px; 
             margin: 30px 0 15px 0;
             background: #0d1117;
             border: 2px solid #30363d;
             border-radius: 10px;
-            font-size: 1.4em; /* Increased font scale */
+            font-size: 1.4em; 
             color: #fff;
             text-align: center;
             box-sizing: border-box;
@@ -79,20 +117,20 @@
             outline: none;
             box-shadow: 0 0 10px rgba(88, 166, 255, 0.5);
         }
-        /* 🔘 EXTRA LARGE BUTTON ARCHITECTURE */
+        /* 🔘 BUTTON ARCHITECTURE */
         .action-btn {
             background: #238636;
             color: white;
             border: none;
-            padding: 18px 40px; /* Highly padded target area */
+            padding: 18px 40px; 
             border-radius: 10px;
-            font-size: 1.25em; /* Scaled up text */
+            font-size: 1.25em; 
             cursor: pointer;
             transition: 0.2s;
             font-weight: bold;
             margin-top: 15px;
             letter-spacing: 0.5px;
-            width: 100%; /* Spans full card utility zone width */
+            width: 100%; 
             max-width: 350px;
         }
         .action-btn:hover { 
@@ -105,7 +143,6 @@
         }
         .next-btn:hover { background: #1b85db; }
         
-        /* 💥 NOTIFICATION MODULES */
         .error { color: #f85149; font-weight: bold; font-size: 1.15em; margin-top: 15px; display: none; }
         .success-box { 
             display: none; 
@@ -116,12 +153,28 @@
             margin-top: 25px; 
         }
         .success-box h3 { font-size: 1.4em; }
+
+        /* 🎬 INTERACTIVE WRONG ANSWER SHAKE ANIMATION */
+        .shake {
+            animation: shakeAnim 0.4s ease-in-out;
+            border-color: #f85149 !important;
+            box-shadow: 0 0 20px rgba(248, 81, 73, 0.4) !important;
+        }
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
+<div class="card" id="main-card">
     <div class="persistent-banner">🖥️ CODENAME: OPERATION SLEEP DEPRIVATION</div>
+    
+    <div class="progress-container">
+        <div id="game-progress" class="progress-bar"></div>
+    </div>
     
     <!-- 🎬 INTRO SCREEN INTERFACE -->
     <div id="intro-screen">
@@ -141,7 +194,7 @@
         <p id="puzzle-clue">Preparing encryption nodes...</p>
         
         <div id="input-zone">
-            <input type="text" id="answer-input" placeholder="Enter override code">
+            <input type="text" id="answer-input" placeholder="Enter override code" autocomplete="off">
             <br>
             <button class="action-btn" onclick="verifyAnswer()">Bypass Security</button>
             <p class="error" id="error-msg">Access Denied. Incorrect string sequence.</p>
@@ -156,27 +209,47 @@
 </div>
 
 <script>
+    // 🎵 LIVE WEB AUDIO UTILITY ENGINE (No media files required)
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq, type, duration) {
+        try {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        } catch(e) {}
+    }
+
     const puzzleData = {
         "1": {
             title: "Puzzle 1: The Timeline",
             clue: "Count the total of Papa birth year. Enter the exact number.",
-            answer: "10", // Change this to your exact answer
+            answer: "10", 
             nextHint: "Clear proof of baseline intelligence found. Ready for the next node?",
-            nextStep: "2" 
+            nextStep: "2",
+            pct: "33%" 
         },
         "2": {
             title: "Puzzle 2: The Baby Nursery",
-            clue: "What size daiper you choose for newborn?",
+            clue: "What size diaper you choose for newborn?",
             answer: "1", 
             nextHint: "Inventory baseline verified. Firewall security crumbling.",
-            nextStep: "3" 
+            nextStep: "3",
+            pct: "66%" 
         },
         "3": {
             title: "Puzzle 3: The Final Key",
             clue: "Solve the remaining riddle: What goes up but never comes down? (One word)",
             answer: "age",
             nextHint: "🚨 TOTAL MAINFRAME OVERRIDE ACQUIRED: Use master system bypass code 2-0-2-6 to crack the mechanical lock box on the center table!",
-            nextStep: null 
+            nextStep: null,
+            pct: "100%" 
         }
     };
 
@@ -184,16 +257,19 @@
     let currentStep = urlParams.get('step') || "1";
     let gameStarted = false;
 
-    // Transition function to swap screens
     function startGame() {
         gameStarted = true;
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        playBeep(880, 'sine', 0.3); // Level initializing chime
         document.getElementById("intro-screen").style.display = "none";
         document.getElementById("game-screen").style.display = "block";
         renderPuzzle();
     }
 
     function renderPuzzle() {
-        if (!gameStarted) return; // Prevent render before intro completes
+        if (!gameStarted) return; 
+        
+        document.getElementById("game-progress").style.width = puzzleData[currentStep].pct;
         
         if (puzzleData[currentStep]) {
             document.getElementById("puzzle-title").innerText = puzzleData[currentStep].title;
@@ -202,12 +278,11 @@
             document.getElementById("input-zone").style.display = "block";
             document.getElementById("success-zone").style.display = "none";
             document.getElementById("error-msg").style.display = "none";
-        } else {
-            document.getElementById("puzzle-title").innerText = "Critical Crash";
-            document.getElementById("puzzle-clue").innerText = "Invalid scanning pipeline sequence detected.";
-            document.getElementById("input-zone").style.display = "none";
         }
     }
+
+    function verifyAnswer() {
+
 
     function verifyAnswer() {
         const userInput = document.getElementById("answer-input").value.trim().toLowerCase();
