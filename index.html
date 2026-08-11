@@ -55,12 +55,18 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
 
+        /* 📊 ENHANCED WRAPPER LAYOUT FOR TRACKER LINE & NUMBER */
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
         .progress-container {
             background: #30363d;
             border-radius: 10px;
             height: 14px;
-            width: 100%;
-            margin-bottom: 25px;
+            flex-grow: 1; /* Automatically stretches to fill room */
             overflow: hidden;
             border: 1px solid #21262d;
         }
@@ -70,6 +76,14 @@
             width: 0%; 
             transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 0 12px #58a6ff;
+        }
+        .progress-text {
+            color: #58a6ff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2em;
+            font-weight: bold;
+            min-width: 50px;
+            text-align: right;
         }
 
         h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.8em; } 
@@ -160,8 +174,12 @@
 <div class="card" id="main-card">
     <div class="persistent-banner">🖥️ CODENAME: OPERATION SLEEP DEPRIVATION</div>
     
-    <div class="progress-container">
-        <div id="game-progress" class="progress-bar"></div>
+    <!-- 📊 THE INTERACTIVE PROGRESS SECTION WITH PERCENT TEXT -->
+    <div class="progress-wrapper">
+        <div class="progress-container">
+            <div id="game-progress" class="progress-bar"></div>
+        </div>
+        <div id="progress-text" class="progress-text">0%</div>
     </div>
     
     <!-- 🎬 INTRO SCREEN INTERFACE -->
@@ -197,7 +215,6 @@
 </div>
 
 <script>
-    // 🎵 FIXED SAFELY TO INITIALIZE SOUND ONLY UPON USER SELECTION INTERACTION
     let audioCtx = null;
     function playBeep(freq, type, duration) {
         try {
@@ -264,7 +281,9 @@
     function renderPuzzle() {
         if (!gameStarted) return; 
         
+        // Update both the sliding bar and text field tracking values concurrently
         document.getElementById("game-progress").style.width = puzzleData[currentStep].pct;
+        document.getElementById("progress-text").innerText = puzzleData[currentStep].pct;
         
         if (puzzleData[currentStep]) {
             document.getElementById("puzzle-title").innerText = puzzleData[currentStep].title;
