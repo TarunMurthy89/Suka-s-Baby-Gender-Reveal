@@ -7,6 +7,191 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* 🖼️ HIGH-RES AESTHETIC NEWBORN BABY BACKGROUND WITH INTEGRATED OVERLAY TINT */
+            background: linear-gradient(rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.82)), 
+                        url('https://unsplash.com') no-repeat center center fixed; 
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .card {
+            background: rgba(22, 27, 34, 0.94); 
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #58a6ff;
+            box-shadow: 0 0 25px rgba(88, 166, 255, 0.35);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px); 
+        }
+        .persistent-banner {
+            background: #ff7b72;
+            color: #0d1117;
+            font-size: 0.95em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            padding: 12px;
+            margin: -30px -30px 25px -30px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        h2 { color: #58a6ff; margin-bottom: 10px; font-size: 1.3em; }
+        p { color: #c9d1d9; font-size: 1.1em; line-height: 1.5; }
+        input {
+            width: 80%;
+            padding: 12px;
+            margin: 20px 0 10px 0;
+            background: #0d1117;
+            border: 2px solid #30363d;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: #fff;
+            text-align: center;
+        }
+        input:focus {
+            border-color: #58a6ff;
+            outline: none;
+        }
+        .action-btn {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .action-btn:hover { background: #2ea043; }
+        .next-btn {
+            background: #2196F3;
+            margin-top: 15px;
+        }
+        .next-btn:hover { background: #1b85db; }
+        .error { color: #f85149; font-weight: bold; margin-top: 10px; display: none; }
+        .success-box { display: none; background: rgba(35, 134, 54, 0.15); border: 2px dashed #238636; padding: 15px; border-radius: 8px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="persistent-banner">🖥️ CODENAME: OPERATION SLEEP DEPRIVATION</div>
+    
+    <h2 id="puzzle-title">Decrypting Firewalls...</h2>
+    <p id="puzzle-clue">Attempting to breach baby security mainframe...</p>
+    
+    <div id="input-zone">
+        <input type="text" id="answer-input" placeholder="Enter override code">
+        <br>
+        <button class="action-btn" onclick="verifyAnswer()">Bypass Security</button>
+        <p class="error" id="error-msg">Access Denied. Incorrect string sequence.</p>
+    </div>
+
+    <div class="success-box" id="success-zone">
+        <h3 style="color: #56d364; margin: 0 0 10px 0;">✔ Node Successfully Breached</h3>
+        <p id="next-location-hint" style="color: #c9d1d9; margin: 0; font-weight: bold;"></p>
+        <div id="navigation-zone"></div>
+    </div>
+</div>
+
+<script>
+    const puzzleData = {
+        "1": {
+            title: "Puzzle 1: The Timeline",
+            clue: "Count the total of Papa birth year. Enter the exact number.",
+            answer: "10", // Change this to your exact answer
+            nextHint: "Clear proof of baseline intelligence found. Ready for the next node?",
+            nextStep: "2" 
+        },
+        "2": {
+            title: "Puzzle 2: The Baby Nursery",
+            clue: "What size daiper you choose for newborn?",
+            answer: "1", // Will accept lowercase or uppercase
+            nextHint: "Inventory baseline verified. Firewall security crumbling.",
+            nextStep: "3" 
+        },
+        "3": {
+            title: "Puzzle 3: The Final Key",
+            clue: "Solve the remaining riddle: What goes up but never comes down? (One word)",
+            answer: "age",
+            nextHint: "🚨 TOTAL MAINFRAME OVERRIDE ACQUIRED: Use master system bypass code 2-0-2-6 to crack the mechanical lock box on the center table!",
+            nextStep: null 
+        }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentStep = urlParams.get('step') || "1";
+
+    function renderPuzzle() {
+        if (puzzleData[currentStep]) {
+            document.getElementById("puzzle-title").innerText = puzzleData[currentStep].title;
+            document.getElementById("puzzle-clue").innerText = puzzleData[currentStep].clue;
+            document.getElementById("answer-input").value = "";
+            document.getElementById("input-zone").style.display = "block";
+            document.getElementById("success-zone").style.display = "none";
+            document.getElementById("error-msg").style.display = "none";
+        } else {
+            document.getElementById("puzzle-title").innerText = "Critical Crash";
+            document.getElementById("puzzle-clue").innerText = "Invalid scanning pipeline sequence detected.";
+            document.getElementById("input-zone").style.display = "none";
+        }
+    }
+
+    function verifyAnswer() {
+        const userInput = document.getElementById("answer-input").value.trim().toLowerCase();
+        const correctAnswer = puzzleData[currentStep].answer.toLowerCase();
+        const errorMsg = document.getElementById("error-msg");
+        const successZone = document.getElementById("success-zone");
+        const nextHintText = document.getElementById("next-location-hint");
+        const navZone = document.getElementById("navigation-zone");
+
+        if (userInput === correctAnswer) {
+            errorMsg.style.display = "none";
+            successZone.style.display = "block";
+            nextHintText.innerText = puzzleData[currentStep].nextHint;
+            document.getElementById("input-zone").style.display = "none"; 
+
+            if (puzzleData[currentStep].nextStep) {
+                navZone.innerHTML = `<button class="action-btn next-btn" onclick="goToNextStep('${puzzleData[currentStep].nextStep}')">Advance to Next Question</button>`;
+            } else {
+                navZone.innerHTML = ""; 
+            }
+        } else {
+            errorMsg.style.display = "block";
+            errorMsg.innerText = "CRITICAL FAILURE: Incorrect decryption code. Try again.";
+        }
+    }
+
+    function goToNextStep(nextStepID) {
+        currentStep = nextStepID;
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?step=' + currentStep;
+        window.history.pushState({path:newUrl}, '', newUrl);
+        renderPuzzle();
+    }
+
+    renderPuzzle();
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👶 PROJECT BUNDLE INITIALIZATION</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.85)), 
                         url('https://unsplash.com') no-repeat center center fixed; 
             background-size: cover;
