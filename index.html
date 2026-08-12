@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👶 PROJECT SUKA Baby Gender Reveal</title>
+    <!-- Include the Lightweight QR Code Scanner Engine -->
+    <script src="https://jsdelivr.net"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -54,14 +56,44 @@
         .briefing-text { text-align: left; background: #0d1117; padding: 25px; border-radius: 12px; border: 1px solid #30363d; font-family: monospace; color: #8b949e; margin-bottom: 20px; }
         input { width: 100%; padding: 15px; margin: 15px 0; background: #0d1117; border: 2px solid #30363d; border-radius: 10px; font-size: 1.3em; color: #fff; text-align: center; box-sizing: border-box; }
         input:focus { border-color: #58a6ff; outline: none; }
-        .action-btn { background: #238636; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 1.2em; cursor: pointer; font-weight: bold; width: 100%; }
+        .action-btn { background: #238636; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 1.2em; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 10px;}
         .error { color: #f85149; font-weight: bold; margin-top: 15px; display: none; }
-        .success-box { display: none; background: rgba(35, 134, 54, 0.15); border: 2px dashed #238636; padding: 20px; border-radius: 10px; margin-top: 20px; }
         .shake { animation: shakeAnim 0.4s ease-in-out; border-color: #f85149 !important; }
+        
+        /* 🚨 NEW MODAL POPUP STYLING */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-content {
+            background: #0d1117;
+            border: 2px solid #58a6ff;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+        .scan-trigger-btn { background: #8a2be2; text-shadow: 0 0 5px #fff; margin-top: 15px; }
+        .scan-trigger-btn:hover { background: #9400d3; }
+        #scanner-container { display: none; margin: 20px 0; background: #000; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; padding: 10px; }
+        #interactive-video-view { width: 100%; background: #000; }
+
         @keyframes shakeAnim { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
     </style>
 </head>
 <body>
+
 <div class="card" id="main-card">
     <div class="persistent-banner">OPERATION BABY CHROMOSOME DECRYPTION</div>
     <div class="progress-wrapper">
@@ -71,11 +103,11 @@
  
     <!-- START INTRO VIEW -->
     <div id="intro-screen">
-        <h2>Incoming Transmission....</h2>
+        <h2>Incoming Transmission...</h2>
         <div class="briefing-text">
             &gt; OBJECTIVE: Decrypt Gender Data<br>
             &gt; CLASSIFICATION: Ultra Secret<br><br>
-            Welcome Parents! Solve the puzzle below. Once your answer is accepted, follow the instructions to find and scan the physical QR code node for the next step.
+            Welcome Parents! Solve the puzzle below. Once your answer is accepted, follow the instructions in the mission update window to find the hidden physical nodes!
         </div>
         <button class="action-btn" onclick="startScavengerHunt()">INITIALIZE TERMINAL</button>
     </div>
@@ -90,11 +122,24 @@
             <button class="action-btn" onclick="checkCurrentAnswer()">Verify System Override</button>
             <p class="error" id="error-msg"></p>
         </div>
+    </div>
+</div>
+
+<!-- 🚨 INSTRUCTION & CAMERA MODAL POPUP DIALOG WINDOW -->
+<div class="modal-overlay" id="instruction-modal">
+    <div class="modal-content">
+        <h2 id="modal-status-title" style="color: #56d364; margin-top: 0;">✔ Decryption Successful</h2>
+        <div class="briefing-text" id="modal-instructions" style="margin: 15px 0;"></div>
         
-        <div class="success-box" id="success-zone">
-            <h3 style="color: #56d364; margin: 0 0 10px 0;">✔ Decryption Successful</h3>
-            <p id="next-location-instructions" style="color: #c9d1d9; margin: 0; font-weight: bold;"></p>
+        <!-- Camera Scanner Element Inside Popup -->
+        <div id="scanner-container">
+            <h3 style="color:#58a6ff; font-size:1em; margin-top:0;">📷 SCAN NEXT CHECKPOINT QR CODE</h3>
+            <div id="interactive-video-view"></div>
+            <button class="action-btn" style="background:#f85149; margin-top:10px; font-size:0.9em; padding:8px 15px; width:auto;" onclick="shutdownCameraScanner()">Stop Scanner</button>
         </div>
+
+        <button class="action-btn scan-trigger-btn" id="modal-scan-init-btn" onclick="bootupCameraScanner()">📷 Open Scanner</button>
+        <button class="action-btn" id="modal-close-btn" style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9;" onclick="closeModal()">Close Windows</button>
     </div>
 </div>
 
@@ -104,26 +149,27 @@
             title: "Puzzle 1: The Parent Timeline",
             clue: "Count the sum total of all four digits of Papa's birth year. Enter that precise number calculation:",
             answer: "10",
-            instructions: "🚨 <b>YOUR NEXT TARGET:</b> Get up and walk to the <b>Baby Nursery Room</b>! Locate and scan the physical QR sticker hidden on the diaper shelf to launch Question 2.",
+            instructions: "🚀 <b>MISSION UPDATE:</b><br>Get up and march to the <b>Baby Nursery Room</b>! Locate and scan the physical QR sticker hidden on the diaper shelf to unlock Step 2.",
             pct: "33%"
         },
         "2": {
             title: "Puzzle 2: The Nursery Terminal",
             clue: "What size diaper standard naming index do you use for an immediate newborn baby?",
             answer: "1",
-            instructions: "🚨 <b>YOUR NEXT TARGET:</b> Proceed downstairs to the kitchen area. Inspect the surfaces of the <b>Refrigerator Door</b> to locate and scan QR Code 3.",
+            instructions: "🚀 <b>MISSION UPDATE:</b><br>Proceed downstairs to the kitchen area. Inspect the surfaces of the <b>Refrigerator Door</b> to find and scan QR Code 3.",
             pct: "66%"
         },
         "3": {
             title: "Puzzle 3: The Final Code Breaker",
             clue: "Solve this text logic riddle: What element always goes up but never comes down? (Provide a single word)",
             answer: "age",
-            instructions: "🎯 <b>SYSTEM ACCESS MASTERED:</b> Security clearance sequence complete! Use system bypass code <b>2-0-2-6</b> to unlock the mechanical safe container box sitting on your living room table!",
+            instructions: "🎯 <b>SYSTEM ACCESS MASTERED:</b><br>Security clearance sequence complete! Use system bypass code <b>2-0-2-6</b> to unlock the physical mechanical safe container box sitting on your living room table!",
             pct: "100%"
         }
     };
 
     let activeStep = 1;
+    let qrScannerInstance = null;
 
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -143,7 +189,6 @@
         document.getElementById("puzzle-clue").innerHTML = puzzleData[activeStep].clue;
         document.getElementById("answer-input").value = "";
         document.getElementById("input-zone").style.display = "block";
-        document.getElementById("success-zone").style.display = "none";
         document.getElementById("error-msg").style.display = "none";
     }
 
@@ -153,25 +198,66 @@
         const mainCard = document.getElementById("main-card");
 
         if (input === puzzleData[activeStep].answer.toLowerCase()) {
-            document.getElementById("input-zone").style.display = "none";
-            document.getElementById("success-zone").style.display = "block";
-            document.getElementById("next-location-instructions").innerHTML = puzzleData[activeStep].instructions;
+            openModal();
         } else {
             error.style.display = "block";
             error.innerText = "CRITICAL REJECTION: Override parameters mismatch. Verify entry.";
-            mainCard.classList.add("shake");
-            setTimeout(() => mainCard.classList.remove("shake"), 400);
+            mainCard.classList.add("shake");setTimeout(() => mainCard.classList.remove("shake"), 400);}}
+    /* =========================================================================MODAL WINDOW SYSTEMS CONTROLLER========================================================================= */
+    function openModal() 
+    {
+        document.getElementById("modal-instructions").innerHTML = puzzleData[activeStep].instructions;document.getElementById("instruction-modal").style.display = "flex";
+        // Final puzzle gives the reward code; no more scanning buttons needed//
+        if (activeStep === 3) {document.getElementById("modal-status-title").innerText = "🎯 Mission Accomplished!";
+                               document.getElementById("modal-status-title").style.color = "#58a6ff";
+                               document.getElementById("modal-scan-init-btn").style.display = "none";
+                               document.getElementById("modal-close-btn").style.width = "100%";
+                              } 
+        else 
+        {
+            document.getElementById("modal-status-title").innerText = "✔ Decryption Successful";
+            document.getElementById("modal-status-title").style.color = "#56d364";
+            document.getElementById("modal-scan-init-btn").style.display = "block";
+            document.getElementById("modal-close-btn").style.width = "100%";
         }
     }
-
+    function closeModal() 
+    {
+        shutdownCameraScanner();document.getElementById("instruction-modal").style.display = "none";
+    }
+    /* =========================================================================CAMERA SCANNING MOTOR CAPABILITIES========================================================================= */
+    function bootupCameraScanner() 
+    {
+        document.getElementById("scanner-container").style.display = "block";
+        document.getElementById("modal-scan-init-btn").style.display = "none";
+        if (!qrScannerInstance) 
+        {
+            qrScannerInstance = new Html5Qrcode("interactive-video-view");
+        }
+        const config = { fps: 15, qrbox: { width: 220, height: 220 }};
+        qrScannerInstance.start({ facingMode: "environment" },config,(decodedText) => {shutdownCameraScanner();
+                                                                                       closeModal();
+                                                                                       parseScannedData(decodedText);
+                                                                                      },(errorMessage) => { /* Lookup polling feedback stream ignored */ }).catch(err => {alert("Camera Initialization Error. Ensure HTTPS and grant browser permissions.");
+                                                                                                                                                                          shutdownCameraScanner();
+                                                                                                                                                                         });
+    }
+    function shutdownCameraScanner() {document.getElementById("modal-scan-init-btn").style.display = "block";document.getElementById("scanner-container").style.display = "none";
+                                      if (qrScannerInstance && qrScannerInstance.isScanning) {qrScannerInstance.stop().catch(err => console.log("Stop sequence processed securely."));
+                                                                                             }
+                                     }
+    function parseScannedData(scannedUrl) {try {const urlObj = new URL(scannedUrl);const stepValue = urlObj.searchParams.get("step");
+                                                if (stepValue && puzzleData[stepValue]) {activeStep = parseInt(stepValue);displayActivePuzzle();
+                                                                                        } 
+                                                else {alert("⚠ Decryption Fail: QR code scanned successfully, but it does not belong to this puzzle setup!");
+                                                     }} 
+    catch (e) {alert("⚠ Error: Invalid configuration signature read from target label.");
+              }}
     // Auto-Run Interceptor: Read tracking string parameter instantly on scan load//
     const targetUrlStep = getQueryParam("step");
-    if (targetUrlStep && puzzleData[targetUrlStep]) {
+    if (targetUrlStep && puzzleData[targetUrlStep]) 
+    {
         activeStep = parseInt(targetUrlStep);
         document.getElementById("intro-screen").style.display = "none";
-        document.getElementById("game-screen").style.display = "block";
-        displayActivePuzzle();
+        document.getElementById("game-screen").style.display = "block";displayActivePuzzle();
     }
-</script>
-</body>
-</html>
