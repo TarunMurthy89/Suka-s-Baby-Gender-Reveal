@@ -8,8 +8,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #0a0e14;
-            /* 🖼️ FORCES YOUR IMAGE TO FILL SCREEN WITHOUT REPEATING */
-            background-image: url("Image2.jpg");
+            background-image: url("Image21.jpg");
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
@@ -23,29 +22,37 @@
             box-sizing: border-box;
         }
         
-        /* 📦 ENLARGED CONTAINER CARD */
+        /* 📦 UPDATED ENHANCED MAIN CARD BACKGROUND (Half Blue, Half Pink with dark terminal tint) */
         .card {
-            background: rgba(22, 27, 34, 0.96); /* Translucent midnight color */
+            background: linear-gradient(rgba(15, 20, 28, 0.94), rgba(15, 20, 28, 0.94)), 
+                        linear-gradient(to right, #58a6ff 60%, #ff7b72 40%);
+            background-size: cover;
             padding: 45px 40px;
             border-radius: 20px;
             border: 3px solid #58a6ff;
-            box-shadow: 0 0 40px rgba(88, 166, 255, 0.4);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
             text-align: center;
-            max-width: 600px; /* Expanded sizing */
+            max-width: 600px; 
             width: 100%;
             position: relative;
             overflow: hidden;
             box-sizing: border-box;
             transition: all 0.4s ease;
-            backdrop-filter: blur(8px);
         }
         
         @media (max-width: 600px) {
-            body { padding: 10px; }
-            .card { padding: 30px 20px; }
+            body { 
+                padding: 10px; 
+                background: linear-gradient(to bottom, #a0c4ff 50%, #ffb7b2 50%);
+            }
+            /* Swaps card gradient alignment to match vertical screen layouts on mobile */
+            .card { 
+                padding: 30px 20px; 
+                background: linear-gradient(rgba(15, 20, 28, 0.94), rgba(15, 20, 28, 0.94)), 
+                            linear-gradient(to bottom, #58a6ff 50%, #ff7b72 50%);
+            }
         }
 
-        /* 🚨 SCALED UP HEADER BANNER */
         .persistent-banner {
             background: #ff7b72;
             color: #0d1117;
@@ -58,15 +65,19 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
 
-        /* 📊 INTERACTIVE PROGRESS BAR */
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
         .progress-container {
-            background: #30363d;
+            background: #21262d;
             border-radius: 10px;
             height: 14px;
-            width: 100%;
-            margin-bottom: 25px;
+            flex-grow: 1; 
             overflow: hidden;
-            border: 1px solid #21262d;
+            border: 1px solid #30363d;
         }
         .progress-bar {
             background: #58a6ff;
@@ -75,9 +86,16 @@
             transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 0 12px #58a6ff;
         }
+        .progress-text {
+            color: #58a6ff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2em;
+            font-weight: bold;
+            min-width: 50px;
+            text-align: right;
+        }
 
-        /* 🔤 ENLARGED TYPOGRAPHY */
-        h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.8em; } 
+        h2 { color: #58a6ff; margin-bottom: 15px; font-size: 1.8em; text-shadow: 0 2px 10px rgba(88,166,255,0.2); } 
         p { color: #c9d1d9; font-size: 1.3em; line-height: 1.6; } 
         
         .briefing-text {
@@ -91,9 +109,9 @@
             color: #8b949e;
             margin: 30px 0;
             line-height: 1.6;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
         }
 
-        /* ⌨️ BIGGER INTERACTIVE INPUT FIELDS */
         input {
             width: 95%;
             padding: 18px; 
@@ -110,10 +128,9 @@
         input:focus {
             border-color: #58a6ff;
             outline: none;
-            box-shadow: 0 0 10px rgba(88, 166, 255, 0.5);
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.4);
         }
 
-        /* 🔘 EXTRA LARGE BUTTONS */
         .action-btn {
             background: #238636;
             color: white;
@@ -139,11 +156,10 @@
         }
         .next-btn:hover { background: #1b85db; }
         
-        /* 💥 NOTIFICATIONS & SHAKE ANIMATION */
         .error { color: #f85149; font-weight: bold; font-size: 1.15em; margin-top: 15px; display: none; }
         .success-box { 
             display: none; 
-            background: rgba(35, 134, 54, 0.15); 
+            background: rgba(35, 134, 54, 0.12); 
             border: 2px dashed #238636; 
             padding: 25px; 
             border-radius: 10px; 
@@ -164,23 +180,26 @@
     </style>
 </head>
 <body>
+<!-- 🌌 Full screen confetti tracking backdrop layer -->
+<canvas id="confetti-canvas"></canvas>
 
 <div class="card" id="main-card">
-    <div class="persistent-banner">🖥️ CODENAME: OPERATION SLEEP DEPRIVATION</div>
-    
-    <!-- Progress bar status element -->
-    <div class="progress-container">
+    <div class="persistent-banner">🖥️OPERATION BABY CHROMOSOME DECRYPTION</div>
+        <div class="progress-wrapper">
+        <div class="progress-container">
         <div id="game-progress" class="progress-bar"></div>
+        </div>
+        <div id="progress-text" class="progress-text">0%</div>
     </div>
     
     <!-- 🎬 INTRO SCREEN INTERFACE -->
     <div id="intro-screen">
         <h2>Incoming Transmission...</h2>
         <div class="briefing-text">
-            &gt; OBJECTIVE: Decrypt data layers<br>
+            &gt; OBJECTIVE: Decrypt Gender Data<br>
             &gt; CLASSIFICATION: Ultra Secret<br>
-            &gt; TARGET: Future Parents<br><br>
-            A high-security vault holds the biological designation data of your incoming unit. Complete all nodes to extract the unlock code.
+            &gt; TARGET: Future SuKa Parents<br><br>
+            A high-security vault holds the biological designation data of your incoming baby. Complete all questions to extract the unlock code.
         </div>
         <button class="action-btn next-btn" onclick="startGame()">INITIALIZE MISSION</button>
     </div>
@@ -206,10 +225,15 @@
 </div>
 
 <script>
-    // 🎵 WEB AUDIO ENGINE (Generates safe hacking sounds natively)
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let audioCtx = null;
     function playBeep(freq, type, duration) {
         try {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = type;
@@ -220,7 +244,9 @@
             gain.connect(audioCtx.destination);
             osc.start();
             osc.stop(audioCtx.currentTime + duration);
-        } catch(e) {}
+        } catch(e) {
+            console.log("Audio block context failed safely:", e);
+        }
     }
 
     const puzzleData = {
@@ -234,7 +260,7 @@
         },
         "2": {
             title: "Puzzle 2: The Baby Nursery",
-            clue: "What size diaper you choose for newborn?", /* Fixed diaper typo */
+            clue: "What size diaper you choose for newborn?", 
             answer: "1", 
             nextHint: "Inventory baseline verified. Firewall security crumbling.",
             nextStep: "3",
@@ -256,17 +282,20 @@
 
     function startGame() {
         gameStarted = true;
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        playBeep(880, 'sine', 0.3); // Bootup chime
+        playBeep(880, 'sine', 0.3); 
         document.getElementById("intro-screen").style.display = "none";
         document.getElementById("game-screen").style.display = "block";
         renderPuzzle();
     }
 
+
+
     function renderPuzzle() {
         if (!gameStarted) return; 
         
+        // Update both the sliding bar and text field tracking values concurrently
         document.getElementById("game-progress").style.width = puzzleData[currentStep].pct;
+        document.getElementById("progress-text").innerText = puzzleData[currentStep].pct;
         
         if (puzzleData[currentStep]) {
             document.getElementById("puzzle-title").innerText = puzzleData[currentStep].title;
@@ -276,42 +305,45 @@
             document.getElementById("success-zone").style.display = "none";
             document.getElementById("error-msg").style.display = "none";
         } else {
-            
-document.getElementById("puzzle-title").innerText = "Critical Crash";
-document.getElementById("puzzle-clue").innerText = "Invalid scanning pipeline sequence detected.";
-document.getElementById("input-zone").style.display = "none";
-}
-}
-function verifyAnswer() 
-{
-const userInput = document.getElementById("answer-input").value.trim().toLowerCase();
-const correctAnswer = puzzleData[currentStep].answer.toLowerCase();
-const errorMsg = document.getElementById("error-msg");
-const successZone = document.getElementById("success-zone");
-const nextHintText = document.getElementById("next-location-hint");
-const navZone = document.getElementById("navigation-zone");
-const mainCard = document.getElementById("main-card");
-if (userInput === correctAnswer) {playBeep(1200, 'triangle', 0.4); 
-// Success alert toneerrorMsg.style.display = "none";
-successZone.style.display = "block";
-nextHintText.innerText = puzzleData[currentStep].nextHint;
-document.getElementById("input-zone").style.display = "none";
-if (puzzleData[currentStep].nextStep) {navZone.innerHTML = <button class="action-btn next-btn" onclick="goToNextStep('${puzzleData[currentStep].nextStep}')">Advance to Next Question</button>;
-} 
-else 
-{
-navZone.innerHTML = "";
-}
-} 
-else {playBeep(130, 'sawtooth', 0.45); // Low failure buzzer sound// 💥 Applies wrong-answer card vibrationmainCard.classList.remove("shake");
-void mainCard.offsetWidth;mainCard.classList.add("shake");errorMsg.style.display = "block";
-errorMsg.innerText = "CRITICAL FAILURE: Incorrect decryption code. Try again.";
-}
-}
-function goToNextStep(nextStepID) 
-{
-playBeep(700, 'sine', 0.15); // Navigation blip
-currentStep = nextStepID;
-const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?step=' + currentStep;window.history.pushState({path:newUrl}, '', newUrl);renderPuzzle();
-}
-            
+            document.getElementById("puzzle-title").innerText = "Critical Crash";
+            document.getElementById("puzzle-clue").innerText = "Invalid scanning pipeline sequence detected.";
+            document.getElementById("input-zone").style.display = "none";
+        }
+    }
+
+    function verifyAnswer() {
+       const userInput = document.getElementById("answer-input").value.trim().toLowerCase();
+       const correctAnswer = puzzleData[currentStep].answer.toLowerCase();
+       const errorMsg = document.getElementById("error-msg");
+       const successZone = document.getElementById("success-zone");
+       const nextHintText = document.getElementById("next-location-hint");
+       const navZone = document.getElementById("navigation-zone");
+
+        if (userInput === correctAnswer) {
+            errorMsg.style.display = "none";
+            successZone.style.display = "block";
+            nextHintText.innerText = puzzleData[currentStep].nextHint;
+            document.getElementById("input-zone").style.display = "none"; 
+
+            if (puzzleData[currentStep].nextStep) {
+                navZone.innerHTML = `<button class="action-btn next-btn" onclick="goToNextStep('${puzzleData[currentStep].nextStep}')">Advance to Next Question</button>`;
+            } else {
+                navZone.innerHTML = ""; 
+            }
+        } else {
+            errorMsg.style.display = "block";
+            errorMsg.innerText = "CRITICAL FAILURE: Incorrect decryption code. Try again.";
+        }
+    }
+
+    function goToNextStep(nextStepID) {
+        currentStep = nextStepID;
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?step=' + currentStep;
+        window.history.pushState({path:newUrl}, '', newUrl);
+        renderPuzzle();
+    }
+
+    renderPuzzle();
+</script>
+</body>
+</html>
