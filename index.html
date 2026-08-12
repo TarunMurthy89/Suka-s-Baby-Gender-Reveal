@@ -336,14 +336,16 @@
      }
  }
 
- // Auto-initialize screen based directly on the URL step parameter when scanned
- const stepParam = urlParams.get('step');
- if (stepParam && puzzleData[stepParam]) {
-     gameStarted = true;
-     document.getElementById("intro-screen").style.display = "none";
-     document.getElementById("game-screen").style.display = "block";
-     renderPuzzle();
- }
+    // Auto-routing flow logic on page mount
+    if (currentStep && puzzleData[currentStep]) {
+        // OVERRIDE: Automatically grant local browser clearance for the scanned step
+        localStorage.setItem("suka_reveal_unlocked_step", currentStep);
+        
+        document.getElementById("intro-screen").style.display = "none";
+        document.getElementById("game-screen").style.display = "block";
+        renderPuzzle();
+    }
 </script>
+
 </body>
 </html>
