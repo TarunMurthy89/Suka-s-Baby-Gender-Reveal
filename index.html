@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👶 PROJECT SUKA Baby Gender Reveal</title>
-    <!-- Include the HTML5 QR Code Scanner Library via CDN -->
-    <script src="https://jsdelivr.net"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -127,10 +125,9 @@
         }
         
         .error { color: #f85149; font-weight: bold; margin-top: 15px; display: none; }
-        
         .shake { animation: shakeAnim 0.4s ease-in-out; border-color: #f85149 !important; }
         
-        /* Modal Window Styles */
+        /* Modal Overlay Window Styles */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -229,6 +226,9 @@
     </div>
 </div>
 
+<!-- 🚨 PERFORMANCE ADJUSTMENT: Camera library loaded asynchronously down here so it won't block the visual rendering speed -->
+<script src="https://jsdelivr.net" defer></script>
+
 <script>
     const puzzleData = {
         "1": {
@@ -268,10 +268,13 @@
         displayActivePuzzle();
     }
 
-    function displayActivePuzzle() {
-document.getElementById("game-progress").style.width = puzzleData[activeStep].pct;document.getElementById("progress-text").innerText = puzzleData[activeStep].pct;document.getElementById("puzzle-title").innerText = puzzleData[activeStep].title;document.getElementById("puzzle-clue").innerHTML = puzzleData[activeStep].clue;document.getElementById("answer-input").value = "";document.getElementById("input-zone").style.display = "block";document.getElementById("error-msg").style.display = "none";}function checkCurrentAnswer() {const input = document.getElementById("answer-input").value.trim().toLowerCase();const error = document.getElementById("error-msg");const mainCard = document.getElementById("main-card");if (input === puzzleData[activeStep].answer.toLowerCase()) {openModal();} else {error.style.display = "block";error.innerText = "CRITICAL REJECTION: Override parameters mismatch. Verify entry.";mainCard.classList.add("shake");setTimeout(() => mainCard.classList.remove("shake"), 400);}}function openModal() {document.getElementById("modal-instructions").innerHTML = puzzleData[activeStep].instructions;document.getElementById("instruction-modal").style.display = "flex";if (activeStep === 3) {document.getElementById("modal-status-title").innerText = "🎯 Mission Accomplished!";document.getElementById("modal-status-title").style.color = "#58a6ff";document.getElementById("modal-scan-init-btn").style.display = "none";} else {document.getElementById("modal-status-title").innerText = "✔ Decryption Successful";document.getElementById("modal-status-title").style.color = "#56d364";document.getElementById("modal-scan-init-btn").style.display = "block";}}function closeModal() {shutdownCameraScanner();document.getElementById("instruction-modal").style.display = "none";}function bootupCameraScanner() {document.getElementById("scanner-container").style.display = "block";document.getElementById("modal-scan-init-btn").style.display = "none";if (!qrScannerInstance) {qrScannerInstance = new Html5Qrcode("interactive-video-view");}const config = { fps: 15, qrbox: { width: 220, height: 220 } };qrScannerInstance.start({ facingMode: "environment" },config,(decodedText) => {shutdownCameraScanner();closeModal();parseScannedData(decodedText);},(errorMessage) => { /* Intercept polling noise */ }).catch(err => {alert("Camera Initialization Error. Ensure your page is served over HTTPS and camera permissions are granted.");shutdownCameraScanner();});}function shutdownCameraScanner() {document.getElementById("modal-scan-init-btn").style.display = "block";document.getElementById("scanner-container").style.display = "none";if (qrScannerInstance && qrScannerInstance.isScanning) {qrScannerInstance.stop().catch(err => console.log("Scanner stopped."));}}function parseScannedData(scannedUrl) {try {const urlObj = new URL(scannedUrl);const stepValue = urlObj.searchParams.get("step");if (stepValue && puzzleData[stepValue]) {activeStep = parseInt(stepValue);displayActivePuzzle();} else {alert("⚠ Decryption Fail: Scanned QR code is valid but does not belong to this game routing system.");}} catch (e) {alert("⚠ Error: Invalid system parameter format read from scanned node.");}}
-    // Auto-Run Link Interceptor//
-    const targetUrlStep = getQueryParam("step");if (targetUrlStep && puzzleData[targetUrlStep]) {activeStep = parseInt(targetUrlStep);document.getElementById("intro-screen").style.display = "none";document.getElementById("game-screen").style.display = "block";displayActivePuzzle();}
+function displayActivePuzzle() {document.getElementById("game-progress").style.width = puzzleData[activeStep].pct;document.getElementById("progress-text").innerText = puzzleData[activeStep].pct;document.getElementById("puzzle-title").innerText = puzzleData[activeStep].title;document.getElementById("puzzle-clue").innerHTML = puzzleData[activeStep].clue;document.getElementById("answer-input").value = "";document.getElementById("input-zone").style.display = "block";document.getElementById("error-msg").style.display = "none";}function checkCurrentAnswer() {const input = document.getElementById("answer-input").value.trim().toLowerCase();const error = document.getElementById("error-msg");const mainCard = document.getElementById("main-card");if (input === puzzleData[activeStep].answer.toLowerCase()) {openModal();} else {error.style.display = "block";error.innerText = "CRITICAL REJECTION: Override parameters mismatch. Verify entry.";mainCard.classList.add("shake");setTimeout(() => mainCard.classList.remove("shake"), 400);}}function openModal() {document.getElementById("modal-instructions").innerHTML = puzzleData[activeStep].instructions;document.getElementById("instruction-modal").style.display = "flex";if (activeStep === 3) {document.getElementById("modal-status-title").innerText = "🎯 Mission Accomplished!";document.getElementById("modal-status-title").style.color = "#58a6ff";document.getElementById("modal-scan-init-btn").style.display = "none";} else {document.getElementById("modal-status-title").innerText = "✔ Decryption Successful";document.getElementById("modal-status-title").style.color = "#56d364";document.getElementById("modal-scan-init-btn").style.display = "block";}}function closeModal() {shutdownCameraScanner();document.getElementById("instruction-modal").style.display = "none";}function bootupCameraScanner() {if (typeof Html5Qrcode === "undefined") {alert("System loading network dependencies... Please wait 2 seconds and tap again.");return;}document.getElementById("scanner-container").style.display = "block";document.getElementById("modal-scan-init-btn").style.display = "none";if (!qrScannerInstance) {qrScannerInstance = new Html5Qrcode("interactive-video-view");}const config = { fps: 15, qrbox: { width: 220, height: 220 } };qrScannerInstance.start({ facingMode: "environment" },config,(decodedText) => {shutdownCameraScanner();closeModal();parseScannedData(decodedText);},(errorMessage) => { 
+    /* Ignore standard scanning ticks */ 
+}).catch(err => {alert("Camera Initialization Error. Ensure your page is served over HTTPS and camera permissions are granted.");
+                 shutdownCameraScanner();});}function shutdownCameraScanner() {
+    document.getElementById("modal-scan-init-btn").style.display = "block";document.getElementById("scanner-container").style.display = "none";if (qrScannerInstance && qrScannerInstance.isScanning) {qrScannerInstance.stop().catch(err => console.log("Scanner stopped."));}}function parseScannedData(scannedUrl) {try {const urlObj = new URL(scannedUrl);const stepValue = urlObj.searchParams.get("step");if (stepValue && puzzleData[stepValue]) {activeStep = parseInt(stepValue);displayActivePuzzle();} else {alert("⚠ Decryption Fail: Scanned QR code is valid but does not belong to this game routing system.");}} catch (e) {alert("⚠ Error: Invalid system parameter format read from scanned node.");}}
+    // Auto-Run Link Interceptorconst targetUrlStep = getQueryParam("step");
+    if (targetUrlStep && puzzleData[targetUrlStep]) {activeStep = parseInt(targetUrlStep);document.getElementById("intro-screen").style.display = "none";document.getElementById("game-screen").style.display = "block";displayActivePuzzle();}
 </script>
 </body>
 </html>
