@@ -27,7 +27,6 @@
             max-width: 600px; 
             width: 100%;
             box-sizing: border-box;
-            transition: all 0.4s ease;
         }
         @media (max-width: 600px) {
             .card { 
@@ -70,33 +69,31 @@
         <div id="progress-text" class="progress-text">0%</div>
     </div>
  
-    <!-- INTRO SCREEN -->
+    <!-- START INTRO VIEW -->
     <div id="intro-screen">
         <h2>Incoming Transmission...</h2>
         <div class="briefing-text">
             &gt; OBJECTIVE: Decrypt Gender Data<br>
             &gt; CLASSIFICATION: Ultra Secret<br><br>
-            Scan physical hidden QR nodes around the house. Use their secret string codes here to unlock terminal steps sequentially!
+            Welcome Parents! Solve the puzzle below. Once your answer is accepted, follow the instructions to find and scan the physical QR code node for the next step.
         </div>
-        <button class="action-btn" onclick="startHunt()">INITIALIZE MISSION</button>
+        <button class="action-btn" onclick="startScavengerHunt()">INITIALIZE TERMINAL</button>
     </div>
 
-    <!-- GAME TERMINAL ZONE -->
+    <!-- MAIN GAME QUESTIONS ENGINE -->
     <div id="game-screen" style="display: none;">
-        <h2 id="puzzle-title"></h2>
+        <h2 id="puzzle-title">Loading...</h2>
         <p id="puzzle-clue"></p>
         
         <div id="input-zone">
-            <input type="text" id="answer-input" placeholder="Enter password text string" autocomplete="off">
-            <button class="action-btn" onclick="verifyAnswer()">Bypass Node Security</button>
+            <input type="text" id="answer-input" placeholder="Type your answer code here..." autocomplete="off">
+            <button class="action-btn" onclick="checkCurrentAnswer()">Verify System Override</button>
             <p class="error" id="error-msg"></p>
         </div>
         
         <div class="success-box" id="success-zone">
-            <h3 style="color: #56d364; margin: 0 0 10px 0;">✔ Access Granted</h3>
-            <p id="next-location-hint" style="color: #c9d1d9; margin: 0;"></p>
-            <br>
-            <button class="action-btn" style="background:#2196F3;" onclick="nextStep()">Load Next Terminal Level</button>
+            <h3 style="color: #56d364; margin: 0 0 10px 0;">✔ Decryption Successful</h3>
+            <p id="next-location-instructions" style="color: #c9d1d9; margin: 0; font-weight: bold;"></p>
         </div>
     </div>
 </div>
@@ -104,38 +101,42 @@
 <script>
     const puzzleData = {
         "1": {
-            title: "Level 1: The Base Checkpoint",
-            clue: "To bypass the baseline firewall, find and scan the QR Code on the living room entry invitation table. Paste the phrase it shows here:",
-            answer: "start-suka-baby-gender-decrypt-game",
-            nextHint: "🚨 <b>NODE BREACHED:</b> Now march physically to the <b>Baby Nursery Room</b>. Search the diaper changing shelves for the hidden QR node.",
+            title: "Puzzle 1: The Parent Timeline",
+            clue: "Count the sum total of all four digits of Papa's birth year. Enter that precise number calculation:",
+            answer: "10",
+            instructions: "🚨 <b>YOUR NEXT TARGET:</b> Get up and walk to the <b>Baby Nursery Room</b>! Locate and scan the physical QR sticker hidden on the diaper shelf to launch Question 2.",
             pct: "33%"
         },
         "2": {
-            title: "Level 2: The Baby Nursery",
-            clue: "Mainframe connection active. Locate and scan the Nursery QR code. Paste its hidden text phrase here:",
-            answer: "LvL1-unlocked",
-            nextHint: "🚨 <b>NODE BREACHED:</b> Move down to the kitchen and inspect the <b>Refrigerator Door</b> surfaces to locate the third code block.",
+            title: "Puzzle 2: The Nursery Terminal",
+            clue: "What size diaper standard naming index do you use for an immediate newborn baby?",
+            answer: "1",
+            instructions: "🚨 <b>YOUR NEXT TARGET:</b> Proceed downstairs to the kitchen area. Inspect the surfaces of the <b>Refrigerator Door</b> to locate and scan QR Code 3.",
             pct: "66%"
         },
         "3": {
-            title: "Level 3: The Final Override",
-            clue: "Final encryption grid reached. Locate and scan the Kitchen Fridge QR code. Paste its text phrase here:",
-            answer: "LvL2-unlocked",
-            nextHint: "🎯 <b>TOTAL MAINFRAME OVERRIDE ACQUIRED</b>: Use master system bypass code <b>2-0-2-6</b> to crack open the physical mechanical lockbox sitting on the living room coffee table!",
+            title: "Puzzle 3: The Final Code Breaker",
+            clue: "Solve this text logic riddle: What element always goes up but never comes down? (Provide a single word)",
+            answer: "age",
+            instructions: "🎯 <b>SYSTEM ACCESS MASTERED:</b> Security clearance sequence complete! Use system bypass code <b>2-0-2-6</b> to unlock the mechanical safe container box sitting on your living room table!",
             pct: "100%"
         }
     };
 
     let activeStep = 1;
 
-    function startHunt() {
-        document.getElementById("intro-screen").style.display = "none";
-        document.getElementById("game-screen").style.display = "block";
-        loadPuzzle();
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
     }
 
-    function loadPuzzle() {
-        if(activeStep > 3) return;
+    function startScavengerHunt() {
+        document.getElementById("intro-screen").style.display = "none";
+        document.getElementById("game-screen").style.display = "block";
+        displayActivePuzzle();
+    }
+
+    function displayActivePuzzle() {
         document.getElementById("game-progress").style.width = puzzleData[activeStep].pct;
         document.getElementById("progress-text").innerText = puzzleData[activeStep].pct;
         document.getElementById("puzzle-title").innerText = puzzleData[activeStep].title;
@@ -146,26 +147,30 @@
         document.getElementById("error-msg").style.display = "none";
     }
 
-    function verifyAnswer() {
+    function checkCurrentAnswer() {
         const input = document.getElementById("answer-input").value.trim().toLowerCase();
         const error = document.getElementById("error-msg");
         const mainCard = document.getElementById("main-card");
 
-        if (input === puzzleData[activeStep].answer) {
+        if (input === puzzleData[activeStep].answer.toLowerCase()) {
             document.getElementById("input-zone").style.display = "none";
             document.getElementById("success-zone").style.display = "block";
-            document.getElementById("next-location-hint").innerHTML = puzzleData[activeStep].nextHint;
+            document.getElementById("next-location-instructions").innerHTML = puzzleData[activeStep].instructions;
         } else {
             error.style.display = "block";
-            error.innerText = "ACCESS DENIED: String sequence invalid. Try again.";
+            error.innerText = "CRITICAL REJECTION: Override parameters mismatch. Verify entry.";
             mainCard.classList.add("shake");
             setTimeout(() => mainCard.classList.remove("shake"), 400);
         }
     }
 
-    function nextStep() {
-        activeStep++;
-        loadPuzzle();
+    // Auto-Run Interceptor: Read tracking string parameter instantly on scan load
+    const targetUrlStep = getQueryParam("step");
+    if (targetUrlStep && puzzleData[targetUrlStep]) {
+        activeStep = parseInt(targetUrlStep);
+        document.getElementById("intro-screen").style.display = "none";
+        document.getElementById("game-screen").style.display = "block";
+        displayActivePuzzle();
     }
 </script>
 </body>
