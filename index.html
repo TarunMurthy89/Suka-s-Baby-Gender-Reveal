@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👶 PROJECT SUKA Baby Gender Reveal</title>
-    <!-- Include the Lightweight QR Code Scanner Engine -->
+    <!-- Include the HTML5 QR Code Scanner Library via CDN -->
     <script src="https://jsdelivr.net"></script>
     <style>
         body {
@@ -18,6 +18,7 @@
             padding: 20px;
             box-sizing: border-box;
         }
+        
         .card {
             background: linear-gradient(rgba(15, 20, 28, 0.94), rgba(15, 20, 28, 0.94)), 
                         linear-gradient(to right, #58a6ff 60%, #ff7b72 40%);
@@ -29,7 +30,9 @@
             max-width: 600px; 
             width: 100%;
             box-sizing: border-box;
+            transition: all 0.4s ease;
         }
+        
         @media (max-width: 600px) {
             .card { 
                 padding: 30px 20px; 
@@ -37,6 +40,7 @@
                             linear-gradient(to bottom, #58a6ff 50%, #ff7b72 50%);
             }
         }
+        
         .persistent-banner {
             background: #ff7b72;
             color: #0d1117;
@@ -47,20 +51,86 @@
             margin: -45px -40px 25px -40px;
             text-transform: uppercase;
         }
-        .progress-wrapper { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-        .progress-container { background: #21262d; border-radius: 10px; height: 14px; flex-grow: 1; overflow: hidden; border: 1px solid #30363d; }
-        .progress-bar { background: #58a6ff; height: 100%; width: 0%; transition: width 0.6s ease; box-shadow: 0 0 12px #58a6ff; }
-        .progress-text { color: #58a6ff; font-family: monospace; font-size: 1.2em; font-weight: bold; }
+        
+        .progress-wrapper { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            margin-bottom: 25px; 
+        }
+        
+        .progress-container { 
+            background: #21262d; 
+            border-radius: 10px; 
+            height: 14px; 
+            flex-grow: 1; 
+            overflow: hidden; 
+            border: 1px solid #30363d; 
+        }
+        
+        .progress-bar { 
+            background: #58a6ff; 
+            height: 100%; 
+            width: 0%; 
+            transition: width 0.6s ease; 
+            box-shadow: 0 0 12px #58a6ff; 
+        }
+        
+        .progress-text { 
+            color: #58a6ff; 
+            font-family: monospace; 
+            font-size: 1.2em; 
+            font-weight: bold; 
+        }
+        
         h2 { color: #58a6ff; margin-bottom: 15px; } 
         p { color: #c9d1d9; font-size: 1.2em; line-height: 1.6; } 
-        .briefing-text { text-align: left; background: #0d1117; padding: 25px; border-radius: 12px; border: 1px solid #30363d; font-family: monospace; color: #8b949e; margin-bottom: 20px; }
-        input { width: 100%; padding: 15px; margin: 15px 0; background: #0d1117; border: 2px solid #30363d; border-radius: 10px; font-size: 1.3em; color: #fff; text-align: center; box-sizing: border-box; }
+        
+        .briefing-text { 
+            text-align: left; 
+            background: #0d1117; 
+            padding: 25px; 
+            border-radius: 12px; 
+            border: 1px solid #30363d; 
+            font-family: monospace; 
+            color: #8b949e; 
+            margin-bottom: 20px; 
+            line-height: 1.6;
+        }
+        
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            margin: 15px 0; 
+            background: #0d1117; 
+            border: 2px solid #30363d; 
+            border-radius: 10px; 
+            font-size: 1.3em; 
+            color: #fff; 
+            text-align: center; 
+            box-sizing: border-box; 
+        }
+        
         input:focus { border-color: #58a6ff; outline: none; }
-        .action-btn { background: #238636; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 1.2em; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 10px;}
+        
+        .action-btn { 
+            background: #238636; 
+            color: white; 
+            border: none; 
+            padding: 15px 30px; 
+            border-radius: 10px; 
+            font-size: 1.2em; 
+            cursor: pointer; 
+            font-weight: bold; 
+            width: 100%; 
+            margin-bottom: 10px;
+        }
+        
         .error { color: #f85149; font-weight: bold; margin-top: 15px; display: none; }
+        
         .shake { animation: shakeAnim 0.4s ease-in-out; border-color: #f85149 !important; }
         
-        /* 🚨 NEW MODAL POPUP STYLING */
+        /* Modal Window Styles */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -73,6 +143,7 @@
             padding: 20px;
             box-sizing: border-box;
         }
+        
         .modal-content {
             background: #0d1117;
             border: 2px solid #58a6ff;
@@ -84,12 +155,27 @@
             text-align: center;
             box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
+        
         .scan-trigger-btn { background: #8a2be2; text-shadow: 0 0 5px #fff; margin-top: 15px; }
         .scan-trigger-btn:hover { background: #9400d3; }
-        #scanner-container { display: none; margin: 20px 0; background: #000; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; padding: 10px; }
+        
+        #scanner-container { 
+            display: none; 
+            margin: 20px 0; 
+            background: #000; 
+            border: 1px solid #30363d; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            padding: 10px; 
+        }
+        
         #interactive-video-view { width: 100%; background: #000; }
 
-        @keyframes shakeAnim { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+        @keyframes shakeAnim { 
+            0%, 100% { transform: translateX(0); } 
+            20%, 60% { transform: translateX(-10px); } 
+            40%, 80% { transform: translateX(10px); } 
+        }
     </style>
 </head>
 <body>
@@ -125,7 +211,7 @@
     </div>
 </div>
 
-<!-- 🚨 INSTRUCTION & CAMERA MODAL POPUP DIALOG WINDOW -->
+<!-- INSTRUCTION & CAMERA MODAL POPUP DIALOG WINDOW -->
 <div class="modal-overlay" id="instruction-modal">
     <div class="modal-content">
         <h2 id="modal-status-title" style="color: #56d364; margin-top: 0;">✔ Decryption Successful</h2>
@@ -139,7 +225,7 @@
         </div>
 
         <button class="action-btn scan-trigger-btn" id="modal-scan-init-btn" onclick="bootupCameraScanner()">📷 Open Scanner</button>
-        <button class="action-btn" id="modal-close-btn" style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9;" onclick="closeModal()">Close Windows</button>
+        <button class="action-btn" id="modal-close-btn" style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9;" onclick="closeModal()">Close Window</button>
     </div>
 </div>
 
@@ -183,81 +269,7 @@
     }
 
     function displayActivePuzzle() {
-        document.getElementById("game-progress").style.width = puzzleData[activeStep].pct;
-        document.getElementById("progress-text").innerText = puzzleData[activeStep].pct;
-        document.getElementById("puzzle-title").innerText = puzzleData[activeStep].title;
-        document.getElementById("puzzle-clue").innerHTML = puzzleData[activeStep].clue;
-        document.getElementById("answer-input").value = "";
-        document.getElementById("input-zone").style.display = "block";
-        document.getElementById("error-msg").style.display = "none";
-    }
-
-    function checkCurrentAnswer() {
-        const input = document.getElementById("answer-input").value.trim().toLowerCase();
-        const error = document.getElementById("error-msg");
-        const mainCard = document.getElementById("main-card");
-
-        if (input === puzzleData[activeStep].answer.toLowerCase()) {
-            openModal();
-        } else {
-            error.style.display = "block";
-            error.innerText = "CRITICAL REJECTION: Override parameters mismatch. Verify entry.";
-            mainCard.classList.add("shake");setTimeout(() => mainCard.classList.remove("shake"), 400);}}
-    /* =========================================================================MODAL WINDOW SYSTEMS CONTROLLER========================================================================= */
-    function openModal() 
-    {
-        document.getElementById("modal-instructions").innerHTML = puzzleData[activeStep].instructions;document.getElementById("instruction-modal").style.display = "flex";
-        // Final puzzle gives the reward code; no more scanning buttons needed//
-        if (activeStep === 3) {document.getElementById("modal-status-title").innerText = "🎯 Mission Accomplished!";
-                               document.getElementById("modal-status-title").style.color = "#58a6ff";
-                               document.getElementById("modal-scan-init-btn").style.display = "none";
-                               document.getElementById("modal-close-btn").style.width = "100%";
-                              } 
-        else 
-        {
-            document.getElementById("modal-status-title").innerText = "✔ Decryption Successful";
-            document.getElementById("modal-status-title").style.color = "#56d364";
-            document.getElementById("modal-scan-init-btn").style.display = "block";
-            document.getElementById("modal-close-btn").style.width = "100%";
-        }
-    }
-    function closeModal() 
-    {
-        shutdownCameraScanner();document.getElementById("instruction-modal").style.display = "none";
-    }
-    /* =========================================================================CAMERA SCANNING MOTOR CAPABILITIES========================================================================= */
-    function bootupCameraScanner() 
-    {
-        document.getElementById("scanner-container").style.display = "block";
-        document.getElementById("modal-scan-init-btn").style.display = "none";
-        if (!qrScannerInstance) 
-        {
-            qrScannerInstance = new Html5Qrcode("interactive-video-view");
-        }
-        const config = { fps: 15, qrbox: { width: 220, height: 220 }};
-        qrScannerInstance.start({ facingMode: "environment" },config,(decodedText) => {shutdownCameraScanner();
-                                                                                       closeModal();
-                                                                                       parseScannedData(decodedText);
-                                                                                      },(errorMessage) => { /* Lookup polling feedback stream ignored */ }).catch(err => {alert("Camera Initialization Error. Ensure HTTPS and grant browser permissions.");
-                                                                                                                                                                          shutdownCameraScanner();
-                                                                                                                                                                         });
-    }
-    function shutdownCameraScanner() {document.getElementById("modal-scan-init-btn").style.display = "block";document.getElementById("scanner-container").style.display = "none";
-                                      if (qrScannerInstance && qrScannerInstance.isScanning) {qrScannerInstance.stop().catch(err => console.log("Stop sequence processed securely."));
-                                                                                             }
-                                     }
-    function parseScannedData(scannedUrl) {try {const urlObj = new URL(scannedUrl);const stepValue = urlObj.searchParams.get("step");
-                                                if (stepValue && puzzleData[stepValue]) {activeStep = parseInt(stepValue);displayActivePuzzle();
-                                                                                        } 
-                                                else {alert("⚠ Decryption Fail: QR code scanned successfully, but it does not belong to this puzzle setup!");
-                                                     }} 
-    catch (e) {alert("⚠ Error: Invalid configuration signature read from target label.");
-              }}
-    // Auto-Run Interceptor: Read tracking string parameter instantly on scan load//
-    const targetUrlStep = getQueryParam("step");
-    if (targetUrlStep && puzzleData[targetUrlStep]) 
-    {
-        activeStep = parseInt(targetUrlStep);
-        document.getElementById("intro-screen").style.display = "none";
-        document.getElementById("game-screen").style.display = "block";displayActivePuzzle();
-    }
+document.getElementById("game-progress").style.width = puzzleData[activeStep].pct;document.getElementById("progress-text").innerText = puzzleData[activeStep].pct;document.getElementById("puzzle-title").innerText = puzzleData[activeStep].title;document.getElementById("puzzle-clue").innerHTML = puzzleData[activeStep].clue;document.getElementById("answer-input").value = "";document.getElementById("input-zone").style.display = "block";document.getElementById("error-msg").style.display = "none";}function checkCurrentAnswer() {const input = document.getElementById("answer-input").value.trim().toLowerCase();const error = document.getElementById("error-msg");const mainCard = document.getElementById("main-card");if (input === puzzleData[activeStep].answer.toLowerCase()) {openModal();} else {error.style.display = "block";error.innerText = "CRITICAL REJECTION: Override parameters mismatch. Verify entry.";mainCard.classList.add("shake");setTimeout(() => mainCard.classList.remove("shake"), 400);}}function openModal() {document.getElementById("modal-instructions").innerHTML = puzzleData[activeStep].instructions;document.getElementById("instruction-modal").style.display = "flex";if (activeStep === 3) {document.getElementById("modal-status-title").innerText = "🎯 Mission Accomplished!";document.getElementById("modal-status-title").style.color = "#58a6ff";document.getElementById("modal-scan-init-btn").style.display = "none";} else {document.getElementById("modal-status-title").innerText = "✔ Decryption Successful";document.getElementById("modal-status-title").style.color = "#56d364";document.getElementById("modal-scan-init-btn").style.display = "block";}}function closeModal() {shutdownCameraScanner();document.getElementById("instruction-modal").style.display = "none";}function bootupCameraScanner() {document.getElementById("scanner-container").style.display = "block";document.getElementById("modal-scan-init-btn").style.display = "none";if (!qrScannerInstance) {qrScannerInstance = new Html5Qrcode("interactive-video-view");}const config = { fps: 15, qrbox: { width: 220, height: 220 } };qrScannerInstance.start({ facingMode: "environment" },config,(decodedText) => {shutdownCameraScanner();closeModal();parseScannedData(decodedText);},(errorMessage) => { /* Intercept polling noise */ }).catch(err => {alert("Camera Initialization Error. Ensure your page is served over HTTPS and camera permissions are granted.");shutdownCameraScanner();});}function shutdownCameraScanner() {document.getElementById("modal-scan-init-btn").style.display = "block";document.getElementById("scanner-container").style.display = "none";if (qrScannerInstance && qrScannerInstance.isScanning) {qrScannerInstance.stop().catch(err => console.log("Scanner stopped."));}}function parseScannedData(scannedUrl) {try {const urlObj = new URL(scannedUrl);const stepValue = urlObj.searchParams.get("step");if (stepValue && puzzleData[stepValue]) {activeStep = parseInt(stepValue);displayActivePuzzle();} else {alert("⚠ Decryption Fail: Scanned QR code is valid but does not belong to this game routing system.");}} catch (e) {alert("⚠ Error: Invalid system parameter format read from scanned node.");}}
+    // Auto-Run Link Interceptor//
+    const targetUrlStep = getQueryParam("step");if (targetUrlStep && puzzleData[targetUrlStep]) {activeStep = parseInt(targetUrlStep);document.getElementById("intro-screen").style.display = "none";document.getElementById("game-screen").style.display = "block";displayActivePuzzle();}
+        
