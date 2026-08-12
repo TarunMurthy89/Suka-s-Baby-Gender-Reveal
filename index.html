@@ -249,32 +249,32 @@
         }
     }
 
-    const puzzleData = {
-        "1": {
-            title: "Puzzle 1: The Timeline",
-            clue: "Count the total of Papa birth year. Enter the exact number.",
-            answer: "10", 
-            nextHint: "Clear proof of baseline intelligence found. Ready for the next node?",
-            nextStep: "2",
-            pct: "33%"
-        },
-        "2": {
-            title: "Puzzle 2: The Baby Nursery",
-            clue: "What size diaper you choose for newborn?", 
-            answer: "1", 
-            nextHint: "Inventory baseline verified. Firewall security crumbling.",
-            nextStep: "3",
-            pct: "66%"
-        },
-        "3": {
-            title: "Puzzle 3: The Final Key",
-            clue: "Solve the remaining riddle: What goes up but never comes down? (One word)",
-            answer: "age",
-            nextHint: "🚨 TOTAL MAINFRAME OVERRIDE ACQUIRED: Use master system bypass code 2-0-2-6 to crack the mechanical lock box on the center table!",
-            nextStep: null,
-            pct: "100%"
-        }
-    };
+ const puzzleData = {
+ "1": {
+     title: "Puzzle 1: The Timeline",
+     clue: "Count the total of Papa's birth year. Enter the exact number.",
+     answer: "10",
+     // CHANGE THIS HINT: Tell them where to go look for QR #2 physical location
+     nextHint: "✔ Node Breached. Now march to the <b>Coffee Machine</b> and discover the next code.", 
+     pct: "33%"
+ },
+ "2": {
+     title: "Puzzle 2: The Baby Nursery",
+     clue: "What size diaper you choose for newborn?",
+     answer: "1",
+     // CHANGE THIS HINT: Tell them where to go look for QR #3 physical location
+     nextHint: "✔ Inventory Verified. Move down to the <b>Jacket hanger</b> and scan the next code to progress.",
+     pct: "66%"
+ },
+ "3": {
+     title: "Puzzle 3: The Final Key",
+     clue: "Solve the remaining riddle: What goes up but never comes down? (One word)",
+     answer: "age",
+     nextHint: "🎯 TOTAL MAINFRAME OVERRIDE ACQUIRED: Use master system bypass code 2-0-2-6 to crack the mechanical lock box on the center table!",
+     pct: "100%"
+ }
+ };
+
 
     const urlParams = new URLSearchParams(window.location.search);
     let currentStep = urlParams.get('step') || "1";
@@ -311,39 +311,39 @@
         }
     }
 
-    function verifyAnswer() {
-       const userInput = document.getElementById("answer-input").value.trim().toLowerCase();
-       const correctAnswer = puzzleData[currentStep].answer.toLowerCase();
-       const errorMsg = document.getElementById("error-msg");
-       const successZone = document.getElementById("success-zone");
-       const nextHintText = document.getElementById("next-location-hint");
-       const navZone = document.getElementById("navigation-zone");
+ function verifyAnswer() {
+     const userInput = document.getElementById("answer-input").value.trim().toLowerCase();
+     const correctAnswer = puzzleData[currentStep].answer.toLowerCase();
+     const errorMsg = document.getElementById("error-msg");
+     const successZone = document.getElementById("success-zone");
+     const nextHintText = document.getElementById("next-location-hint");
+     const mainCard = document.getElementById("main-card");
 
-        if (userInput === correctAnswer) {
-            errorMsg.style.display = "none";
-            successZone.style.display = "block";
-            nextHintText.innerText = puzzleData[currentStep].nextHint;
-            document.getElementById("input-zone").style.display = "none"; 
+     if (userInput === correctAnswer) {
+         playBeep(600, 'sine', 0.2); // Success audio chirp
+         errorMsg.style.display = "none";
+         successZone.style.display = "block";
+         nextHintText.innerHTML = puzzleData[currentStep].nextHint;
+         document.getElementById("input-zone").style.display = "none";
+     } else {
+         playBeep(150, 'sawtooth', 0.4); // Error buzz alert
+         errorMsg.style.display = "block";
+         errorMsg.innerText = "CRITICAL FAILURE: Incorrect decryption code. Try again.";
+         
+         // Visual shake penalty feedback
+         mainCard.classList.add("shake");
+         setTimeout(() => mainCard.classList.remove("shake"), 400);
+     }
+ }
 
-            if (puzzleData[currentStep].nextStep) {
-                navZone.innerHTML = `<button class="action-btn next-btn" onclick="goToNextStep('${puzzleData[currentStep].nextStep}')">Advance to Next Question</button>`;
-            } else {
-                navZone.innerHTML = ""; 
-            }
-        } else {
-            errorMsg.style.display = "block";
-            errorMsg.innerText = "CRITICAL FAILURE: Incorrect decryption code. Try again.";
-        }
-    }
-
-    function goToNextStep(nextStepID) {
-        currentStep = nextStepID;
-        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?step=' + currentStep;
-        window.history.pushState({path:newUrl}, '', newUrl);
-        renderPuzzle();
-    }
-
-    renderPuzzle();
+ // Auto-initialize screen based directly on the URL step parameter when scanned
+ const stepParam = urlParams.get('step');
+ if (stepParam && puzzleData[stepParam]) {
+     gameStarted = true;
+     document.getElementById("intro-screen").style.display = "none";
+     document.getElementById("game-screen").style.display = "block";
+     renderPuzzle();
+ }
 </script>
 </body>
 </html>
