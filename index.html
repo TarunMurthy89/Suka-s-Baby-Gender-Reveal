@@ -121,28 +121,28 @@
             title: "Puzzle 2: The Nursery Terminal",
             clue: "What size diaper standard naming index do you use for an immediate newborn baby?",
             answer: "1",
-            instructions: "🚨 <b>YOUR NEXT TARGET:</b> Proceed downstairs to the kitchen area. Inspect the surfaces of the <b>Refrigerator Door</b> to locate and scan QR Code 3.",
+            instructions: "🚨 <span style='color: #8b949e;'><b>YOUR NEXT TARGET:</b> Proceed downstairs to the kitchen area. Inspect the surfaces of the <b>Refrigerator Door</b> to locate and scan QR Code 3.</span>",
             pct: "40%"
         },
         "3": {
             title: "Puzzle 3: The baby brains",
             clue: "Solve this text logic riddle: What element always goes up but never comes down? (Provide a single word)",
             answer: "age",
-            instructions: "🚨 <b>YOUR NEXT TARGET:</b> Proceed near jacket hanger. Inspect the surfaces to locate and scan QR Code 3.",
+            instructions: "🚨<span style='color: #8b949e;'> <b>YOUR NEXT TARGET:</b> Proceed near jacket hanger. Inspect the surfaces to locate and scan QR Code 3.</span>",
             pct: "60%"
         },
         "4": {
             title: "Puzzle 4: The Barbie Bubble",
             clue: "Solve this text logic riddle: I'm the KEN in the BARBIES world, what is my other name?",
             answer: "guru",
-            instructions: "🚨 <b>YOUR NEXT TARGET:</b> Proceed to toilet sink. Inspect the surfaces to locate and scan QR Code 4.",
+            instructions: "🚨<span style='color: #8b949e;'> <b>YOUR NEXT TARGET:</b> Proceed to toilet sink. Inspect the surfaces to locate and scan QR Code 4.</span>",
             pct: "80%"
         },
         "5": {
             title: "Puzzle 5: The Final Code Breaker",
             clue: "Fill the blank in the riddle: Mobbath barsa den tu ______________ aaya hai.",
             answer: "saavan",
-            instructions: "🎯 <b>SYSTEM ACCESS MASTERED:</b> Security clearance sequence complete! Use system bypass code <b>2-0-2-6</b> to unlock the mechanical safe container box sitting on your living room table!",
+            instructions: "🎯<span style='color: #8b949e;'> <b>SYSTEM ACCESS MASTERED:</b> Security clearance sequence complete! Use system bypass code <b>2-0-2-6</b> to unlock the mechanical safe container box sitting on your living room table!</span>",
             pct: "100%"
         }
     };
@@ -182,7 +182,7 @@
             document.getElementById("next-location-instructions").innerHTML = puzzleData[activeStep].instructions;
         } else {
             error.style.display = "block";
-            error.innerText = "CRITICAL REJECTION: Override parameters mismatch. Verify entry.";
+            error.innerText = "CRITICAL REJECTION: Answer Input Mismatch. Verify entry.";
             mainCard.classList.add("shake");
             setTimeout(() => mainCard.classList.remove("shake"), 400);
         }
